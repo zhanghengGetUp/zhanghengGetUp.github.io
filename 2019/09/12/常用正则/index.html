@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+
+    
+
+    
+
+    <title>常用正则表达式 | 张恒的Blog</title>
+    <meta name="author" content="ZhangHeng">
+    <meta name="keywords" content>
+    <meta name="description" content="基本匹配正则表达式只是我们用于在文本中检索字母和数字的模式。例如正则表达式 cat，表示: 字母 c 后面跟着一个字母 a，再后面跟着一个字母 t。1&amp;quot;cat&amp;quot; =&amp;gt; The cat sat on the mat正则表达式 123 会匹配字符串 “123”。通过将正则表达式中的每个字符逐个与要匹配的字符串中的每个字符进行比较，来完成正则匹配。 正则表达式通常区分大小写，因此正则表达式 Cat 与字符串 “cat” 不匹配。1&amp;quot;Cat&amp;quot...">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+
+    
+    
+    <link rel="icon" href="/images/favicon.ico">
+    
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'icomoon';
+        src: url("/fonts/icomoon.eot?q628ml");
+        src: url("/fonts/icomoon.eot?q628ml#iefix") format('embedded-opentype'),
+             url("/fonts/icomoon.ttf?q628ml") format('truetype'),
+             url("/fonts/icomoon.woff?q628ml") format('woff'),
+             url("/fonts/icomoon.svg?q628ml#icomoon") format('svg');
+        font-weight: normal;
+        font-style: normal;
+    }
+    </style>
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!--[if lt IE 9]>
+    <style type="text/css">
+    .nav-inner {top:0;}
+    .author-meta {position:static;top:0;}
+    .search-form {height:36px;}
+    </style>
+    <script type="text/javascript" src="https://unpkg.com/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+    <main class="app">
+        <header id="header" class="header clearfix">
+    <div id="nav" class="nav">
+    <div class="nav-mobile">
+        <button id="open-panel" class="open-panel nav-mobile-item"><i class="icon-documents"></i></button>
+        <h1 class="nav-mobile-title nav-mobile-item">张恒的Blog</h1>
+        <button id="open-menus" class="open-panel nav-mobile-item"><i class="icon-library"></i></button>
+    </div>
+
+    <nav id="nav-inner" class="nav-inner">
+        
+            <a class="nav-item" href="/">
+                <span class="nav-text">首页</span>
+            </a>
+        
+            <a class="nav-item" href="/tags">
+                <span class="nav-text">标签</span>
+            </a>
+        
+            <a class="nav-item" href="/archives">
+                <span class="nav-text">归档</span>
+            </a>
+        
+            <a class="nav-item" href="/about">
+                <span class="nav-text">关于</span>
+            </a>
+        
+    </nav>
+</div>
+
+    <aside id="aside" class="aside">
+    <div id="aside-mask" class="aside-mask"></div>
+    <div id="aside-inner" class="aside-inner">
+        <!-- <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="https://zhanghenggetup.github.io"></form> -->
+
+        
+        
+        
+        
+
+        
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#基本匹配"><span class="toc-number">1.</span> <span class="toc-text">基本匹配</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#元字符"><span class="toc-number">2.</span> <span class="toc-text">元字符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#英文句号"><span class="toc-number">3.</span> <span class="toc-text">英文句号</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#字符集"><span class="toc-number">4.</span> <span class="toc-text">字符集</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#否定字符集"><span class="toc-number">4.1.</span> <span class="toc-text">否定字符集</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#重复"><span class="toc-number">5.</span> <span class="toc-text">重复</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#星号"><span class="toc-number">5.1.</span> <span class="toc-text">星号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#加号"><span class="toc-number">5.2.</span> <span class="toc-text">加号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#问号"><span class="toc-number">5.3.</span> <span class="toc-text">问号</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#花括号"><span class="toc-number">6.</span> <span class="toc-text">花括号</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#字符组"><span class="toc-number">7.</span> <span class="toc-text">字符组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分支结构"><span class="toc-number">8.</span> <span class="toc-text">分支结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#转义特殊字符"><span class="toc-number">9.</span> <span class="toc-text">转义特殊字符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#定位符"><span class="toc-number">10.</span> <span class="toc-text">定位符</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#插入符号"><span class="toc-number">10.1.</span> <span class="toc-text">插入符号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#美元符号"><span class="toc-number">10.2.</span> <span class="toc-text">美元符号</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#简写字符集"><span class="toc-number">11.</span> <span class="toc-text">简写字符集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#断言"><span class="toc-number">12.</span> <span class="toc-text">断言</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#正向先行断言"><span class="toc-number">12.1.</span> <span class="toc-text">正向先行断言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#负向先行断言"><span class="toc-number">12.2.</span> <span class="toc-text">负向先行断言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#正向后行断言"><span class="toc-number">12.3.</span> <span class="toc-text">正向后行断言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#负向后行断言"><span class="toc-number">12.4.</span> <span class="toc-text">负向后行断言</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#标记"><span class="toc-number">13.</span> <span class="toc-text">标记</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#不区分大小写"><span class="toc-number">13.1.</span> <span class="toc-text">不区分大小写</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#全局搜索"><span class="toc-number">13.2.</span> <span class="toc-text">全局搜索</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#多行匹配"><span class="toc-number">13.3.</span> <span class="toc-text">多行匹配</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常用正则表达式"><span class="toc-number">14.</span> <span class="toc-text">常用正则表达式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#手机号"><span class="toc-number">14.1.</span> <span class="toc-text">手机号</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#匹配所有"><span class="toc-number">14.1.1.</span> <span class="toc-text">匹配所有</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#匹配中国移动"><span class="toc-number">14.1.2.</span> <span class="toc-text">匹配中国移动</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#匹配中国联通"><span class="toc-number">14.1.3.</span> <span class="toc-text">匹配中国联通</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#匹配中国电信"><span class="toc-number">14.1.4.</span> <span class="toc-text">匹配中国电信</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#手机号码中间四位用-代替"><span class="toc-number">14.1.5.</span> <span class="toc-text">手机号码中间四位用*代替</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数字"><span class="toc-number">14.2.</span> <span class="toc-text">数字</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#验证是不是数字"><span class="toc-number">14.2.1.</span> <span class="toc-text">验证是不是数字</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#验证n位的数字"><span class="toc-number">14.2.2.</span> <span class="toc-text">验证n位的数字</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#正整数"><span class="toc-number">14.2.3.</span> <span class="toc-text">正整数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#正浮点数"><span class="toc-number">14.2.4.</span> <span class="toc-text">正浮点数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#负整数"><span class="toc-number">14.2.5.</span> <span class="toc-text">负整数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#负浮点数"><span class="toc-number">14.2.6.</span> <span class="toc-text">负浮点数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#浮点数"><span class="toc-number">14.2.7.</span> <span class="toc-text">浮点数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#大于等于0-小于等于150-支持小数位出现5-如145-5-用于判断考卷分数"><span class="toc-number">14.2.8.</span> <span class="toc-text">大于等于0, 小于等于150, 支持小数位出现5, 如145.5, 用于判断考卷分数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#字符串"><span class="toc-number">14.3.</span> <span class="toc-text">字符串</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#纯中文-汉字"><span class="toc-number">14.3.1.</span> <span class="toc-text">纯中文/汉字</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#纯英文字母"><span class="toc-number">14.3.2.</span> <span class="toc-text">纯英文字母</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#密码强度正则，最少6位，包括至少1个大写字母，1个小写字母，1个数字，1个特殊字符"><span class="toc-number">14.3.3.</span> <span class="toc-text">密码强度正则，最少6位，包括至少1个大写字母，1个小写字母，1个数字，1个特殊字符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#帐号是否合法-字母开头，允许5-16字节，允许字母数字下划线组合"><span class="toc-number">14.3.4.</span> <span class="toc-text">帐号是否合法(字母开头，允许5-16字节，允许字母数字下划线组合</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#是否由数字和字母组成"><span class="toc-number">14.3.5.</span> <span class="toc-text">是否由数字和字母组成</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#去除字符串中空格"><span class="toc-number">14.3.6.</span> <span class="toc-text">去除字符串中空格</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#电子邮件"><span class="toc-number">14.4.</span> <span class="toc-text">电子邮件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#身份证"><span class="toc-number">14.5.</span> <span class="toc-text">身份证</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#身份证号-支持1-2代-15位-18位数字"><span class="toc-number">14.5.1.</span> <span class="toc-text">身份证号, 支持1/2代(15位/18位数字)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#一代身份证号-15位数字"><span class="toc-number">14.5.2.</span> <span class="toc-text">一代身份证号(15位数字)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#二代身份证号-18位数字-最后一位是校验位-可能为数字或字符X"><span class="toc-number">14.5.3.</span> <span class="toc-text">二代身份证号(18位数字),最后一位是校验位,可能为数字或字符X</span></a></li></ol></li></ol></li></ol>
+        
+    </div>
+</aside>
+</header>
+
+        <div id="content" class="content">
+            <div id="wrapper" class="wrapper" style="max-width: 800px">
+                <article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            常用正则表达式
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="https://zhanghenggetup.github.io/2019/09/12/常用正则/index.html">
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2019-09-12T06:35:36.000Z" itemprop="datePublished">2019-09-12</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/正则/">正则</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <h2 id="基本匹配"><a href="#基本匹配" class="headerlink" title="基本匹配"></a>基本匹配</h2><p>正则表达式只是我们用于在文本中检索字母和数字的模式。例如正则表达式 <code>cat</code>，表示: 字母 <code>c</code> 后面跟着一个字母 <code>a</code>，再后面跟着一个字母 <code>t</code>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;cat&quot; =&gt; The cat sat on the mat</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<p>正则表达式 <code>123</code> 会匹配字符串 “123”。通过将正则表达式中的每个字符逐个与要匹配的字符串中的每个字符进行比较，来完成正则匹配。 正则表达式通常区分大小写，因此正则表达式 <code>Cat</code> 与字符串 “cat” 不匹配。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;Cat&quot; =&gt; The cat sat on the Cat</span><br></pre></td></tr></table></figure>
+
+<h2 id="元字符"><a href="#元字符" class="headerlink" title="元字符"></a>元字符</h2><p>元字符是正则表达式的基本组成元素。元字符在这里跟它通常表达的意思不一样，而是以某种特殊的含义去解释。有些元字符写在方括号内的时候有特殊含义。 元字符如下:</p>
+<table>
+<thead>
+<tr>
+<th>元字符</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>.</td>
+<td>匹配除换行符以外的任意字符。</td>
+</tr>
+<tr>
+<td>[ ]</td>
+<td>字符类，匹配方括号中包含的任意字符。</td>
+</tr>
+<tr>
+<td>[^ ]</td>
+<td>否定字符类。匹配方括号中不包含的任意字符</td>
+</tr>
+<tr>
+<td>*</td>
+<td>匹配前面的子表达式零次或多次</td>
+</tr>
+<tr>
+<td>+</td>
+<td>匹配前面的子表达式一次或多次</td>
+</tr>
+<tr>
+<td>?</td>
+<td>匹配前面的子表达式零次或一次，或指明一个非贪婪限定符。</td>
+</tr>
+<tr>
+<td>{n,m}</td>
+<td>花括号，匹配前面字符至少 n 次，但是不超过 m 次。</td>
+</tr>
+<tr>
+<td>(xyz)</td>
+<td>字符组，按照确切的顺序匹配字符xyz。</td>
+</tr>
+<tr>
+<td>|</td>
+<td>分支结构，匹配符号之前的字符或后面的字符。</td>
+</tr>
+<tr>
+<td>\</td>
+<td>转义符，它可以还原元字符原来的含义，允许你匹配保留字符 `[ ] ( ) { } . * + ? ^ $ \</td>
+</tr>
+<tr>
+<td>^</td>
+<td>匹配行的开始</td>
+</tr>
+<tr>
+<td>$</td>
+<td>匹配行的结束</td>
+</tr>
+</tbody></table>
+<h2 id="英文句号"><a href="#英文句号" class="headerlink" title="英文句号"></a>英文句号</h2><p>英文句号 <code>.</code> 是元字符的最简单的例子。元字符 <code>.</code> 可以匹配任意单个字符。它不会匹配换行符和新行的字符。例如正则表达式 <code>.ar</code>，表示: 任意字符后面跟着一个字母 <code>a</code>， 再后面跟着一个字母 <code>r</code>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;.ar&quot; =&gt; The car parked in the garage.</span><br></pre></td></tr></table></figure>
+
+<h2 id="字符集"><a href="#字符集" class="headerlink" title="字符集"></a>字符集</h2><p>字符集也称为字符类。方括号被用于指定字符集。使用字符集内的连字符来指定字符范围。方括号内的字符范围的顺序并不重要。 例如正则表达式 <code>[Tt]he</code>，表示: 大写 <code>T</code> 或小写 <code>t</code> ，后跟字母 <code>h</code>，再后跟字母 <code>e</code>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;[Tt]he&quot; =&gt; The car parked in the garage.</span><br></pre></td></tr></table></figure>
+
+<p>然而，字符集中的英文句号表示它字面的含义。正则表达式 <code>ar[.]</code>，表示小写字母 <code>a</code>，后面跟着一个字母 <code>r</code>，再后面跟着一个英文句号 <code>.</code> 字符。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;ar[.]&quot; =&gt; A garage is a good place to park a car.</span><br></pre></td></tr></table></figure>
+
+<h3 id="否定字符集"><a href="#否定字符集" class="headerlink" title="否定字符集"></a>否定字符集</h3><p>一般来说插入字符 <code>^</code> 表示一个字符串的开始，但是当它在方括号内出现时，它会取消字符集。例如正则表达式 <code>[^c]ar</code>，表示: 除了字母 <code>c</code> 以外的任意字符，后面跟着字符 <code>a</code>， 再后面跟着一个字母 <code>r</code>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;[^c]ar&quot; =&gt; The car parked in the garage.</span><br></pre></td></tr></table></figure>
+
+<h2 id="重复"><a href="#重复" class="headerlink" title="重复"></a>重复</h2><p>以下元字符 <code>+</code>，<code>*</code> 或 <code>?</code> 用于指定子模式可以出现多少次。这些元字符在不同情况下的作用不同。</p>
+<h3 id="星号"><a href="#星号" class="headerlink" title="星号"></a>星号</h3><p>该符号 <code>*</code> 表示匹配上一个匹配规则的零次或多次。正则表达式 <code>a*</code> 表示小写字母 <code>a</code> 可以重复零次或者多次。但是它如果出现在字符集或者字符类之后，它表示整个字符集的重复。 例如正则表达式 <code>[a-z]*</code>，表示: 一行中可以包含任意数量的小写字母。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;[a-z]*&quot; =&gt; The car parked in the garage #21.</span><br></pre></td></tr></table></figure>
+
+<p>该 <code>*</code> 符号可以与元符号 <code>.</code> 用在一起，用来匹配任意字符串 <code>.*</code>。该 <code>*</code> 符号可以与空格符 <code>\s</code> 一起使用，用来匹配一串空格字符。 例如正则表达式 <code>\s*cat\s*</code>，表示: 零个或多个空格，后面跟小写字母 <code>c</code>，再后面跟小写字母 <code>a</code>，再再后面跟小写字母 <code>t</code>，后面再跟零个或多个空格。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;\s*cat\s*&quot; =&gt; The fat cat sat on the cat.</span><br></pre></td></tr></table></figure>
+
+<h3 id="加号"><a href="#加号" class="headerlink" title="加号"></a>加号</h3><p>该符号 <code>+</code> 匹配上一个字符的一次或多次。例如正则表达式 <code>c.+t</code>，表示: 一个小写字母 <code>c</code>，后跟任意数量的字符，后跟小写字母 <code>t</code>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;c.+t&quot; =&gt; The fat cat sat on the mat.</span><br></pre></td></tr></table></figure>
+
+<h3 id="问号"><a href="#问号" class="headerlink" title="问号"></a>问号</h3><p>在正则表达式中，元字符 <code>?</code> 用来表示前一个字符是可选的。该符号匹配前一个字符的零次或一次。 例如正则表达式 <code>[T]?he</code>，表示: 可选的大写字母 <code>T</code>，后面跟小写字母 <code>h</code>，后跟小写字母 <code>e</code>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&quot;[T]he&quot; =&gt; The car is parked in the garage.</span><br><span class="line">&quot;[T]?he&quot; =&gt; The car is parked in the garage.</span><br></pre></td></tr></table></figure>
+
+<h2 id="花括号"><a href="#花括号" class="headerlink" title="花括号"></a>花括号</h2><p>在正则表达式中花括号(也被称为量词 ?)用于指定字符或一组字符可以重复的次数。例如正则表达式 <code>[0-9]{2,3}</code>，表示: 匹配至少2位数字但不超过3位(0到9范围内的字符)。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;[0-9]&#123;2,3&#125;&quot; =&gt; The number was 9.9997 but we rounded it off to 10.0.</span><br></pre></td></tr></table></figure>
+
+<p>我们可以省略第二个数字。例如正则表达式 <code>[0-9]{2,}</code>，表示: 匹配2个或更多个数字。如果我们也删除逗号，则正则表达式 <code>[0-9]{2}</code>，表示: 匹配正好为2位数的数字。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&quot;[0-9]&#123;2,&#125;&quot; =&gt; The number was 9.9997 but we rounded it off to 10.0.</span><br><span class="line">&quot;[0-9]&#123;2&#125;&quot; =&gt; The number was 9.9997 but we rounded it off to 10.0.</span><br></pre></td></tr></table></figure>
+
+<h2 id="字符组"><a href="#字符组" class="headerlink" title="字符组"></a>字符组</h2><p>字符组是一组写在圆括号内的子模式 <code>(...)</code>。正如我们在正则表达式中讨论的那样，如果我们把一个量词放在一个字符之后，它会重复前一个字符。 但是，如果我们把量词放在一个字符组之后，它会重复整个字符组。 例如正则表达式 <code>(ab)*</code> 表示匹配零个或多个的字符串 “ab”。我们还可以在字符组中使用元字符 <code>|</code>。例如正则表达式 <code>(c|g|p)ar</code>，表示: 小写字母 <code>c</code>、<code>g</code> 或 <code>p</code> 后面跟字母 <code>a</code>，后跟字母 <code>r</code>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;(c|g|p)ar&quot; =&gt; The car is parked in the garage.</span><br></pre></td></tr></table></figure>
+
+<h2 id="分支结构"><a href="#分支结构" class="headerlink" title="分支结构"></a>分支结构</h2><p>在正则表达式中垂直条 <code>|</code> 用来定义分支结构，分支结构就像多个表达式之间的条件。现在你可能认为这个字符集和分支机构的工作方式一样。 但是字符集和分支结构巨大的区别是字符集只在字符级别上有作用，然而分支结构在表达式级别上依然可以使用。 例如正则表达式 <code>(T|t)he|car</code>，表示: 大写字母 <code>T</code> 或小写字母 <code>t</code>，后面跟小写字母 <code>h</code>，后跟小写字母 <code>e</code> 或小写字母 <code>c</code>，后跟小写字母 <code>a</code>，后跟小写字母 <code>r</code>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;(T|t)he|car&quot; =&gt; The car is parked in the garage.</span><br></pre></td></tr></table></figure>
+
+<h2 id="转义特殊字符"><a href="#转义特殊字符" class="headerlink" title="转义特殊字符"></a>转义特殊字符</h2><p>正则表达式中使用反斜杠 <code>\</code> 来转义下一个字符。这将允许你使用保留字符来作为匹配字符 <code>{ } [ ] / \ + * . $ ^ | ?</code>。在特殊字符前面加 <code>\</code>，就可以使用它来做匹配字符。 例如正则表达式 <code>.</code> 是用来匹配除了换行符以外的任意字符。现在要在输入字符串中匹配 <code>.</code> 字符，正则表达式 <code>(f|c|m)at\.?</code>，表示: 小写字母 <code>f</code>、<code>c</code> 或者 <code>m</code> 后跟小写字母 <code>a</code>，后跟小写字母 <code>t</code>，后跟可选的 <code>.</code> 字符。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;(f|c|m)at\.?&quot; =&gt; The fat cat sat on the mat.</span><br></pre></td></tr></table></figure>
+
+<h2 id="定位符"><a href="#定位符" class="headerlink" title="定位符"></a>定位符</h2><p>在正则表达式中，为了检查匹配符号是否是起始符号或结尾符号，我们使用定位符。 定位符有两种类型: 第一种类型是 <code>^</code> 检查匹配字符是否是起始字符，第二种类型是 <code>$</code>，它检查匹配字符是否是输入字符串的最后一个字符。</p>
+<h3 id="插入符号"><a href="#插入符号" class="headerlink" title="插入符号"></a>插入符号</h3><p>插入符号 <code>^</code> 符号用于检查匹配字符是否是输入字符串的第一个字符。如果我们使用正则表达式 <code>^a</code> (如果a是起始符号)匹配字符串 <code>abc</code>，它会匹配到 <code>a</code>。 但是如果我们使用正则表达式 <code>^b</code>，它是匹配不到任何东西的，因为在字符串 <code>abc</code> 中 “b” 不是起始字符。 让我们来看看另一个正则表达式 <code>^(T|t)he</code>，这表示: 大写字母 <code>T</code> 或小写字母 <code>t</code> 是输入字符串的起始符号，后面跟着小写字母 <code>h</code>，后跟小写字母 <code>e</code>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&quot;(T|t)he&quot; =&gt; The car is parked in the garage.</span><br><span class="line">&quot;^(T|t)he&quot; =&gt; The car is parked in the garage.</span><br></pre></td></tr></table></figure>
+
+<h3 id="美元符号"><a href="#美元符号" class="headerlink" title="美元符号"></a>美元符号</h3><p>美元 <code>$</code> 符号用于检查匹配字符是否是输入字符串的最后一个字符。例如正则表达式 <code>(at\.)$</code>，表示: 小写字母 <code>a</code>，后跟小写字母 <code>t</code>，后跟一个 <code>.</code> 字符，且这个匹配器必须是字符串的结尾。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&quot;(at\.)&quot; =&gt; The fat cat. sat. on the mat.</span><br><span class="line">&quot;(at\.)$&quot; =&gt; The fat cat sat on the mat.</span><br></pre></td></tr></table></figure>
+
+<h2 id="简写字符集"><a href="#简写字符集" class="headerlink" title="简写字符集"></a>简写字符集</h2><p>正则表达式为常用的字符集和常用的正则表达式提供了简写。简写字符集如下:</p>
+<table>
+<thead>
+<tr>
+<th>简写</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>.</td>
+<td>匹配除换行符以外的任意字符</td>
+</tr>
+<tr>
+<td>\w</td>
+<td>匹配所有字母和数字的字符: <code>[a-zA-Z0-9_]</code></td>
+</tr>
+<tr>
+<td>\W</td>
+<td>匹配非字母和数字的字符: <code>[^\w]</code></td>
+</tr>
+<tr>
+<td>\d</td>
+<td>匹配数字: <code>[0-9]</code></td>
+</tr>
+<tr>
+<td>\D</td>
+<td>匹配非数字: <code>[^\d]</code></td>
+</tr>
+<tr>
+<td>\s</td>
+<td>匹配空格符: <code>[\t\n\f\r\p{Z}]</code></td>
+</tr>
+<tr>
+<td>\S</td>
+<td>匹配非空格符: <code>[^\s]</code></td>
+</tr>
+</tbody></table>
+<h2 id="断言"><a href="#断言" class="headerlink" title="断言"></a>断言</h2><p>后行断言和先行断言有时候被称为断言，它们是特殊类型的 <strong><em>非捕获组</em></strong> (用于匹配模式，但不包括在匹配列表中)。当我们在一种特定模式之前或者之后有这种模式时，会优先使用断言。 例如我们想获取输入字符串 <code>$4.44 and $10.88</code> 中带有前缀 <code>$</code> 的所有数字。我们可以使用这个正则表达式 <code>(?&lt;=\$)[0-9\.]*</code>，表示: 获取包含 <code>.</code> 字符且前缀为 <code>$</code> 的所有数字。 以下是正则表达式中使用的断言:</p>
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>?=</td>
+<td>正向先行断言</td>
+</tr>
+<tr>
+<td>?!</td>
+<td>负向先行断言</td>
+</tr>
+<tr>
+<td>?&lt;=</td>
+<td>正向后行断言</td>
+</tr>
+<tr>
+<td>?&lt;!</td>
+<td>负向后行断言</td>
+</tr>
+</tbody></table>
+<h3 id="正向先行断言"><a href="#正向先行断言" class="headerlink" title="正向先行断言"></a>正向先行断言</h3><p>正向先行断言认为第一部分的表达式必须是先行断言表达式。返回的匹配结果仅包含与第一部分表达式匹配的文本。 要在一个括号内定义一个正向先行断言，在括号中问号和等号是这样使用的 <code>(?=...)</code>。先行断言表达式写在括号中的等号后面。 例如正则表达式 <code>(T|t)he(?=\sfat)</code>，表示: 匹配大写字母 <code>T</code> 或小写字母 <code>t</code>，后面跟字母 <code>h</code>，后跟字母 <code>e</code>。 在括号中，我们定义了正向先行断言，它会引导正则表达式引擎匹配 <code>The</code> 或 <code>the</code> 后面跟着 <code>fat</code>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;(T|t)he(?=\sfat)&quot; =&gt; The fat cat sat on the mat.</span><br></pre></td></tr></table></figure>
+
+<h3 id="负向先行断言"><a href="#负向先行断言" class="headerlink" title="负向先行断言"></a>负向先行断言</h3><p>当我们需要从输入字符串中获取不匹配表达式的内容时，使用负向先行断言。负向先行断言的定义跟我们定义的正向先行断言一样， 唯一的区别是不是等号 <code>=</code>，我们使用否定符号 <code>!</code>，例如 <code>(?!...)</code>。 我们来看看下面的正则表达式 <code>(T|t)he(?!\sfat)</code>，表示: 从输入字符串中获取全部 <code>The</code> 或者 <code>the</code> 且不匹配 <code>fat</code> 前面加上一个空格字符。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;(T|t)he(?!\sfat)&quot; =&gt; The fat cat sat on the mat.</span><br></pre></td></tr></table></figure>
+
+<h3 id="正向后行断言"><a href="#正向后行断言" class="headerlink" title="正向后行断言"></a>正向后行断言</h3><p>正向后行断言是用于获取在特定模式之前的所有匹配内容。正向后行断言表示为 <code>(?&lt;=...)</code>。例如正则表达式 <code>(?&lt;=(T|t)he\s)(fat|mat)</code>，表示: 从输入字符串中获取在单词 <code>The</code> 或 <code>the</code> 之后的所有 <code>fat</code> 和 <code>mat</code> 单词。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;(?&lt;=(T|t)he\s)(fat|mat)&quot; =&gt; The fat cat sat on the mat.</span><br></pre></td></tr></table></figure>
+
+<h3 id="负向后行断言"><a href="#负向后行断言" class="headerlink" title="负向后行断言"></a>负向后行断言</h3><p>负向后行断言是用于获取不在特定模式之前的所有匹配的内容。负向后行断言表示为 <code>(?&lt;!...)</code>。例如正则表达式 <code>(?&lt;!(T|t)he\s)(cat)</code>，表示: 在输入字符中获取所有不在 <code>The</code> 或 <code>the</code> 之后的所有单词 <code>cat</code>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;(?&lt;!(T|t)he\s)(cat)&quot; =&gt; The cat sat on cat.</span><br></pre></td></tr></table></figure>
+
+<h2 id="标记"><a href="#标记" class="headerlink" title="标记"></a>标记</h2><p>标记也称为修饰符，因为它会修改正则表达式的输出。这些标志可以以任意顺序或组合使用，并且是正则表达式的一部分。</p>
+<table>
+<thead>
+<tr>
+<th>标记</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>i</td>
+<td>不区分大小写: 将匹配设置为不区分大小写。</td>
+</tr>
+<tr>
+<td>g</td>
+<td>全局搜索: 搜索整个输入字符串中的所有匹配。</td>
+</tr>
+<tr>
+<td>m</td>
+<td>多行匹配: 会匹配输入字符串每一行。</td>
+</tr>
+</tbody></table>
+<h3 id="不区分大小写"><a href="#不区分大小写" class="headerlink" title="不区分大小写"></a>不区分大小写</h3><p><code>i</code> 修饰符用于执行不区分大小写匹配。例如正则表达式 <code>/The/gi</code>，表示: 大写字母 <code>T</code>，后跟小写字母 <code>h</code>，后跟字母 <code>e</code>。 但是在正则匹配结束时 <code>i</code> 标记会告诉正则表达式引擎忽略这种情况。正如你所看到的，我们还使用了 <code>g</code> 标记，因为我们要在整个输入字符串中搜索匹配。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&quot;The&quot; =&gt; The fat cat sat on the mat.</span><br><span class="line">&quot;/The/gi&quot; =&gt; The fat cat sat on the mat.</span><br></pre></td></tr></table></figure>
+
+<h3 id="全局搜索"><a href="#全局搜索" class="headerlink" title="全局搜索"></a>全局搜索</h3><p><code>g</code> 修饰符用于执行全局匹配 (会查找所有匹配，不会在查找到第一个匹配时就停止)。 例如正则表达式 <code>/.(at)/g</code>，表示: 除换行符之外的任意字符，后跟小写字母 <code>a</code>，后跟小写字母 <code>t</code>。 因为我们在正则表达式的末尾使用了 <code>g</code> 标记，它会从整个输入字符串中找到每个匹配项。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&quot;.(at)&quot; =&gt; The fat cat sat on the mat.</span><br><span class="line">&quot;/.(at)/g&quot; =&gt; The fat cat sat on the mat.</span><br></pre></td></tr></table></figure>
+
+<h3 id="多行匹配"><a href="#多行匹配" class="headerlink" title="多行匹配"></a>多行匹配</h3><p><code>m</code> 修饰符被用来执行多行的匹配。正如我们前面讨论过的 <code>(^, $)</code>，使用定位符来检查匹配字符是输入字符串开始或者结束。但是我们希望每一行都使用定位符，所以我们就使用 <code>m</code> 修饰符。 例如正则表达式 <code>/at(.)?$/gm</code>，表示: 小写字母 <code>a</code>，后跟小写字母 <code>t</code>，匹配除了换行符以外任意字符零次或一次。而且因为 <code>m</code> 标记，现在正则表达式引擎匹配字符串中每一行的末尾。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&quot;/.at(.)?$/&quot; =&gt; The fat</span><br><span class="line">                cat sat</span><br><span class="line">                on the mat.</span><br><span class="line">&quot;/.at(.)?$/gm&quot; =&gt; The fat</span><br><span class="line">                  cat sat</span><br><span class="line">                  on the mat.</span><br></pre></td></tr></table></figure>
+
+<h2 id="常用正则表达式"><a href="#常用正则表达式" class="headerlink" title="常用正则表达式"></a>常用正则表达式</h2><h3 id="手机号"><a href="#手机号" class="headerlink" title="手机号"></a>手机号</h3><h4 id="匹配所有"><a href="#匹配所有" class="headerlink" title="匹配所有"></a>匹配所有</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^(?:\+?86)?1(?:3\d&#123;3&#125;|5[^4\D]\d&#123;2&#125;|8\d&#123;3&#125;|7(?:[35678]\d&#123;2&#125;|4(?:0\d|1[0-2]|9\d))|9[189]\d&#123;2&#125;|66\d&#123;2&#125;)\d&#123;6&#125;$</span><br></pre></td></tr></table></figure>
+
+<h4 id="匹配中国移动"><a href="#匹配中国移动" class="headerlink" title="匹配中国移动"></a>匹配中国移动</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^(?:\+?86)?1(?:3(?:4[^9\D]|[5-9]\d)|5[^3-6\D]\d|8[23478]\d|(?:78|98)\d)\d&#123;7&#125;$</span><br></pre></td></tr></table></figure>
+
+<h4 id="匹配中国联通"><a href="#匹配中国联通" class="headerlink" title="匹配中国联通"></a>匹配中国联通</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^(?:\+?86)?1(?:3[0-2]|[578][56]|66)\d&#123;8&#125;$</span><br></pre></td></tr></table></figure>
+
+<h4 id="匹配中国电信"><a href="#匹配中国电信" class="headerlink" title="匹配中国电信"></a>匹配中国电信</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^(?:\+?86)?1(?:3(?:3\d|49)\d|53\d&#123;2&#125;|8[019]\d&#123;2&#125;|7(?:[37]\d&#123;2&#125;|40[0-5])|9[19]\d&#123;2&#125;)\d&#123;6&#125;$</span><br></pre></td></tr></table></figure>
+
+<h4 id="手机号码中间四位用-代替"><a href="#手机号码中间四位用-代替" class="headerlink" title="手机号码中间四位用*代替"></a>手机号码中间四位用*代替</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function encryptPhone(val)&#123;</span><br><span class="line">    if(!val) return;</span><br><span class="line">    return val.replace(/^(\d&#123;3&#125;)(\d&#123;4&#125;)(\d+)/, &apos;$1****$3&apos;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">encryptPhone(&apos;13173786224&apos;); // 131****6224</span><br></pre></td></tr></table></figure>
+
+<h3 id="数字"><a href="#数字" class="headerlink" title="数字"></a>数字</h3><h4 id="验证是不是数字"><a href="#验证是不是数字" class="headerlink" title="验证是不是数字"></a>验证是不是数字</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^[0-9]*$</span><br></pre></td></tr></table></figure>
+
+<h4 id="验证n位的数字"><a href="#验证n位的数字" class="headerlink" title="验证n位的数字"></a>验证n位的数字</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^\d&#123;n&#125;$</span><br></pre></td></tr></table></figure>
+
+<h4 id="正整数"><a href="#正整数" class="headerlink" title="正整数"></a>正整数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^[0-9]*[1-9][0-9]*$</span><br></pre></td></tr></table></figure>
+
+<h4 id="正浮点数"><a href="#正浮点数" class="headerlink" title="正浮点数"></a>正浮点数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$</span><br></pre></td></tr></table></figure>
+
+<h4 id="负整数"><a href="#负整数" class="headerlink" title="负整数"></a>负整数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^-[0-9]*[1-9][0-9]*$</span><br></pre></td></tr></table></figure>
+
+<h4 id="负浮点数"><a href="#负浮点数" class="headerlink" title="负浮点数"></a>负浮点数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^(-(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*)))$</span><br></pre></td></tr></table></figure>
+
+<h4 id="浮点数"><a href="#浮点数" class="headerlink" title="浮点数"></a>浮点数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^(-?\d+)(\.\d+)?$</span><br></pre></td></tr></table></figure>
+
+<h4 id="大于等于0-小于等于150-支持小数位出现5-如145-5-用于判断考卷分数"><a href="#大于等于0-小于等于150-支持小数位出现5-如145-5-用于判断考卷分数" class="headerlink" title="大于等于0, 小于等于150, 支持小数位出现5, 如145.5, 用于判断考卷分数"></a>大于等于0, 小于等于150, 支持小数位出现5, 如145.5, 用于判断考卷分数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^150$|^(?:\d|[1-9]\d|1[0-4]\d)(?:.5)?$</span><br></pre></td></tr></table></figure>
+
+<h3 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h3><h4 id="纯中文-汉字"><a href="#纯中文-汉字" class="headerlink" title="纯中文/汉字"></a>纯中文/汉字</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^(?:[\u3400-\u4DB5\u4E00-\u9FEA\uFA0E\uFA0F\uFA11\uFA13\uFA14\uFA1F\uFA21\uFA23\uFA24\uFA27-\uFA29]|[\uD840-\uD868\uD86A-\uD86C\uD86F-\uD872\uD874-\uD879][\uDC00-\uDFFF]|\uD869[\uDC00-\uDED6\uDF00-\uDFFF]|\uD86D[\uDC00-\uDF34\uDF40-\uDFFF]|\uD86E[\uDC00-\uDC1D\uDC20-\uDFFF]|\uD873[\uDC00-\uDEA1\uDEB0-\uDFFF]|\uD87A[\uDC00-\uDFE0])+$</span><br></pre></td></tr></table></figure>
+
+<h4 id="纯英文字母"><a href="#纯英文字母" class="headerlink" title="纯英文字母"></a>纯英文字母</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^[a-zA-Z]+$</span><br></pre></td></tr></table></figure>
+
+<h4 id="密码强度正则，最少6位，包括至少1个大写字母，1个小写字母，1个数字，1个特殊字符"><a href="#密码强度正则，最少6位，包括至少1个大写字母，1个小写字母，1个数字，1个特殊字符" class="headerlink" title="密码强度正则，最少6位，包括至少1个大写字母，1个小写字母，1个数字，1个特殊字符"></a>密码强度正则，最少6位，包括至少1个大写字母，1个小写字母，1个数字，1个特殊字符</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^.*(?=.&#123;6,&#125;)(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&amp;*? ]).*$</span><br></pre></td></tr></table></figure>
+
+<h4 id="帐号是否合法-字母开头，允许5-16字节，允许字母数字下划线组合"><a href="#帐号是否合法-字母开头，允许5-16字节，允许字母数字下划线组合" class="headerlink" title="帐号是否合法(字母开头，允许5-16字节，允许字母数字下划线组合"></a>帐号是否合法(字母开头，允许5-16字节，允许字母数字下划线组合</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^[a-zA-Z][a-zA-Z0-9_]&#123;4,15&#125;$</span><br></pre></td></tr></table></figure>
+
+<h4 id="是否由数字和字母组成"><a href="#是否由数字和字母组成" class="headerlink" title="是否由数字和字母组成"></a>是否由数字和字母组成</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^[A-Za-z0-9]+$</span><br></pre></td></tr></table></figure>
+
+<h4 id="去除字符串中空格"><a href="#去除字符串中空格" class="headerlink" title="去除字符串中空格"></a>去除字符串中空格</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">str.replace(/\s/g,&apos;&apos;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="电子邮件"><a href="#电子邮件" class="headerlink" title="电子邮件"></a>电子邮件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]&#123;2,4&#125;)*$</span><br></pre></td></tr></table></figure>
+
+<h3 id="身份证"><a href="#身份证" class="headerlink" title="身份证"></a>身份证</h3><h4 id="身份证号-支持1-2代-15位-18位数字"><a href="#身份证号-支持1-2代-15位-18位数字" class="headerlink" title="身份证号, 支持1/2代(15位/18位数字)"></a>身份证号, 支持1/2代(15位/18位数字)</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(^\d&#123;8&#125;(0\d|10|11|12)([0-2]\d|30|31)\d&#123;3&#125;$)|(^\d&#123;6&#125;(18|19|20)\d&#123;2&#125;(0\d|10|11|12)([0-2]\d|30|31)\d&#123;3&#125;(\d|X|x)$)</span><br></pre></td></tr></table></figure>
+
+<h4 id="一代身份证号-15位数字"><a href="#一代身份证号-15位数字" class="headerlink" title="一代身份证号(15位数字)"></a>一代身份证号(15位数字)</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^\d&#123;8&#125;(0\d|10|11|12)([0-2]\d|30|31)\d&#123;3&#125;$</span><br></pre></td></tr></table></figure>
+
+<h4 id="二代身份证号-18位数字-最后一位是校验位-可能为数字或字符X"><a href="#二代身份证号-18位数字-最后一位是校验位-可能为数字或字符X" class="headerlink" title="二代身份证号(18位数字),最后一位是校验位,可能为数字或字符X"></a>二代身份证号(18位数字),最后一位是校验位,可能为数字或字符X</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^\d&#123;6&#125;(18|19|20)\d&#123;2&#125;(0\d|10|11|12)([0-2]\d|30|31)\d&#123;3&#125;(\d|X|x)$</span><br></pre></td></tr></table></figure>
+
+
+        
+    </section>
+</article>
+
+
+
+<a id="pagenext" href="/2019/08/28/CSS水平垂直居中实现方式/" class="article-next" title="CSS水平垂直居中实现方式"><i class="icon-arrow-right"></i></a>
+
+
+<a id="pageprev" href="/2019/09/17/eslint配置/" class="article-prev" title="Eslint配置"><i class="icon-arrow-left"></i></a>
+
+
+
+
+            </div>
+        </div>
+        <footer class="footer">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme by <a href="https://github.com/sanonz/hexo-theme-concise" target="_blank">Concise</a>
+
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?e4027971a230b210f4671f485b33846a";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+    
+</footer>
+
+    </main>
+
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        var nodes = {
+            nav: $('#nav'),
+            aside: $('#aside'),
+            asideInner: $('#aside-inner'),
+            navInner: $('#nav-inner')
+        };
+
+        var doing = false;
+        nodes.asideInner.on('webkitAnimationEnd mozAnimationEnd oAnimationEnd oanimationend animationend', function() {
+            if (nodes.aside.hasClass('mobile-open')) {
+                nodes.aside.removeClass('mobile-open');
+            } else {
+                nodes.aside.removeClass('mobile-close panel-show');
+            }
+            doing = false;
+        });
+        $('#open-panel, #aside-mask').on('click', function() {
+            if (doing) {
+                return;
+            }
+
+            if (nodes.aside.hasClass('panel-show')) {
+                nodes.aside.addClass('mobile-close');
+            } else {
+                nodes.aside.addClass('mobile-open panel-show');
+            }
+        });
+        $('#open-menus').on('click', function() {
+            nodes.navInner.slideToggle();
+        });
+
+        if (window.innerWidth <= 960) {
+            setTimeout(function() {
+                nodes.navInner.slideUp();
+            }, 3000);
+        }
+    });
+    </script>
+    
+        <script src="/js/scrollspy.min.js"></script>
+        <script type="text/javascript">
+        $(document.body).scrollspy({target: '#aside-inner'});
+
+        $(window).on('resize', function() {
+            var hw = $('#header').width();
+            var ww = $('#wrapper').width();
+            var space = ($(this).width() - hw - ww) / 2 / 2;
+
+            var pageprev = $('#pageprev');
+            var pagenext = $('#pagenext');
+            var avg = (pageprev.width() + pagenext.width()) / 2
+
+            if(space > avg) {
+                var len = space - avg / 2;
+                var styles = {position: 'fixed', top: '50%', marginTop: - (pageprev.width() + pagenext.width()) / 4}
+                pageprev.css($.extend({left: hw + len}, styles));
+                pagenext.css($.extend({right: len}, styles));
+            } else {
+                pageprev.removeAttr('style');
+                pagenext.removeAttr('style');
+            }
+        }).trigger('resize');
+        </script>
+    
+
+</body>
+</html>

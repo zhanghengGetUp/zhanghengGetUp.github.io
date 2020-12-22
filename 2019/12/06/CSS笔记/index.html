@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+
+    
+
+    
+
+    <title>CSS笔记 | 张恒的Blog</title>
+    <meta name="author" content="ZhangHeng">
+    <meta name="keywords" content>
+    <meta name="description" content="CSS盒模型当对一个文档进行布局的时候，浏览器的渲染引擎会根据标准之一的CSS基础框盒模型，将所有的元素表示为一个个矩形的盒子。CSS决定这些盒子的大小、位置以及属性（例如颜色，背景，边框尺寸等）。每个盒子由四个部分（或称区域）组成，其效用由它们各自的边界（Edge）所定义：​    Content 、Padding、Border、MarginCSS术语和概念长度单位:CSS中的长度单位有时间单位（如s，ms），还有角度单位（如deg，rad等），但是最常见的自然还是长度单位（如...">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+
+    
+    
+    <link rel="icon" href="/images/favicon.ico">
+    
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'icomoon';
+        src: url("/fonts/icomoon.eot?q628ml");
+        src: url("/fonts/icomoon.eot?q628ml#iefix") format('embedded-opentype'),
+             url("/fonts/icomoon.ttf?q628ml") format('truetype'),
+             url("/fonts/icomoon.woff?q628ml") format('woff'),
+             url("/fonts/icomoon.svg?q628ml#icomoon") format('svg');
+        font-weight: normal;
+        font-style: normal;
+    }
+    </style>
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!--[if lt IE 9]>
+    <style type="text/css">
+    .nav-inner {top:0;}
+    .author-meta {position:static;top:0;}
+    .search-form {height:36px;}
+    </style>
+    <script type="text/javascript" src="https://unpkg.com/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+    <main class="app">
+        <header id="header" class="header clearfix">
+    <div id="nav" class="nav">
+    <div class="nav-mobile">
+        <button id="open-panel" class="open-panel nav-mobile-item"><i class="icon-documents"></i></button>
+        <h1 class="nav-mobile-title nav-mobile-item">张恒的Blog</h1>
+        <button id="open-menus" class="open-panel nav-mobile-item"><i class="icon-library"></i></button>
+    </div>
+
+    <nav id="nav-inner" class="nav-inner">
+        
+            <a class="nav-item" href="/">
+                <span class="nav-text">首页</span>
+            </a>
+        
+            <a class="nav-item" href="/tags">
+                <span class="nav-text">标签</span>
+            </a>
+        
+            <a class="nav-item" href="/archives">
+                <span class="nav-text">归档</span>
+            </a>
+        
+            <a class="nav-item" href="/about">
+                <span class="nav-text">关于</span>
+            </a>
+        
+    </nav>
+</div>
+
+    <aside id="aside" class="aside">
+    <div id="aside-mask" class="aside-mask"></div>
+    <div id="aside-inner" class="aside-inner">
+        <!-- <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="https://zhanghenggetup.github.io"></form> -->
+
+        
+        
+        
+        
+
+        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#CSS盒模型"><span class="toc-number">1.</span> <span class="toc-text">CSS盒模型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CSS术语和概念"><span class="toc-number">2.</span> <span class="toc-text">CSS术语和概念</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#长度单位"><span class="toc-number">2.1.</span> <span class="toc-text">长度单位:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#选择器"><span class="toc-number">2.2.</span> <span class="toc-text">选择器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#伪类选择器"><span class="toc-number">2.2.1.</span> <span class="toc-text">伪类选择器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#关系选择器"><span class="toc-number">2.3.</span> <span class="toc-text">关系选择器</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#流、元素与基本尺寸"><span class="toc-number">3.</span> <span class="toc-text">流、元素与基本尺寸</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#块级元素"><span class="toc-number">3.1.</span> <span class="toc-text">块级元素</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#内联元素"><span class="toc-number">3.2.</span> <span class="toc-text">内联元素</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#哪些元素是内联元素"><span class="toc-number">3.2.1.</span> <span class="toc-text">哪些元素是内联元素</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#从定义看"><span class="toc-number">3.2.1.1.</span> <span class="toc-text">从定义看</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#从表现看"><span class="toc-number">3.2.1.2.</span> <span class="toc-text">从表现看</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CSS定位"><span class="toc-number">4.</span> <span class="toc-text">CSS定位</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、postion属性的作用"><span class="toc-number">4.1.</span> <span class="toc-text">一、postion属性的作用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、static属性值"><span class="toc-number">4.2.</span> <span class="toc-text">二、static属性值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、relative，absolute、fixed"><span class="toc-number">4.3.</span> <span class="toc-text">三、relative，absolute、fixed</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-relative属性值"><span class="toc-number">4.3.1.</span> <span class="toc-text">3.1 relative属性值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-absolute属性"><span class="toc-number">4.3.2.</span> <span class="toc-text">3.2 absolute属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-fixed属性"><span class="toc-number">4.3.3.</span> <span class="toc-text">3.3 fixed属性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、sticky属性值"><span class="toc-number">4.4.</span> <span class="toc-text">四、sticky属性值</span></a></li></ol></li></ol>
+        
+    </div>
+</aside>
+</header>
+
+        <div id="content" class="content">
+            <div id="wrapper" class="wrapper" style="max-width: 800px">
+                <article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            CSS笔记
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="https://zhanghenggetup.github.io/2019/12/06/CSS笔记/index.html">
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2019-12-05T16:00:00.000Z" itemprop="datePublished">2019-12-06</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/CSS/">CSS</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <h1 id="CSS盒模型"><a href="#CSS盒模型" class="headerlink" title="CSS盒模型"></a>CSS盒模型</h1><p>当对一个文档进行布局的时候，浏览器的渲染引擎会根据标准之一的CSS基础框盒模型，将所有的元素表示为一个个矩形的盒子。CSS决定这些盒子的大小、位置以及属性（例如颜色，背景，边框尺寸等）。</p>
+<p>每个盒子由四个部分（或称区域）组成，其效用由它们各自的边界（Edge）所定义：</p>
+<p>​    Content 、Padding、Border、Margin</p>
+<a id="more"></a>
+
+<h1 id="CSS术语和概念"><a href="#CSS术语和概念" class="headerlink" title="CSS术语和概念"></a>CSS术语和概念</h1><h2 id="长度单位"><a href="#长度单位" class="headerlink" title="长度单位:"></a>长度单位:</h2><p>CSS中的长度单位有时间单位（如s，ms），还有角度单位（如deg，rad等），但是最常见的自然还是长度单位（如px，em等）。需要注意的是，诸如2%后面的百分号%不是长度单位，因为2%就是一个完整的值，就是一个整体，就像0.02是一个值那样，2%也是一个值。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;number&gt; + 长度单位 = &lt;length&gt;</span><br></pre></td></tr></table></figure>
+
+<p>如果细分，长度单位又可以分为相对长度单位和绝对长度单位。</p>
+<ol>
+<li>相对长度单位。相对长度又分为相对字体长度单位和相对视区长度单位。<ul>
+<li>相对字体长度单位，如em，ex，还有CSS3的rem和ch（字符0的宽度）</li>
+<li>相对视区长度单位，如vh、vw、vmin和vmax。</li>
+</ul>
+</li>
+<li>绝对长度单位：最常见的就是px，还有pt、cm、mm、pc等了解一下就可以了</li>
+</ol>
+<h2 id="选择器"><a href="#选择器" class="headerlink" title="选择器"></a>选择器</h2><p>选择器是瞄准目标元素的东西。</p>
+<ul>
+<li>类选择器：指以”.”开头的选择器。很多元素可以应用同一个类选择器。</li>
+<li>ID选择器：以“#”开头，权重很高。ID一般指向唯一元素。但是在CSS中，ID央视出现在多个不同的元素上并不会只渲染第一个，而是雨露均沾。但是显然不推荐这么做。</li>
+<li>属性选择器：指含有[]的选择器，形如<code>[title]:{}、[title=&quot;css-world&quot;]</code>等</li>
+<li>伪类选择器：一般指前面有个英文冒号”:”的选择器，如:first-child或:last-child等</li>
+<li>伪元素选择器：就是有两个连续冒号的选择器，如::first-line、::first-latter、::before、::after</li>
+</ul>
+<h3 id="伪类选择器"><a href="#伪类选择器" class="headerlink" title="伪类选择器"></a>伪类选择器</h3><p>hover前加空格，本身不会有:hover的效果，而后代元素会有:hover的效果</p>
+<h2 id="关系选择器"><a href="#关系选择器" class="headerlink" title="关系选择器"></a>关系选择器</h2><p>关系选择器是指根据与其他元素的关系选择元素的选择器，常见的符号有空格、&gt;、~，还有+等，这些都是非常常用的选择器。</p>
+<ul>
+<li>后代选择器：选择所有合乎规则的后代元素。空格连接。</li>
+<li>相邻后代选择器：仅仅选择合乎规则的儿子元素，孙子、重孙元素忽略，因此又称“子选择器”。&gt;连接。适用于IE7以上版本。</li>
+<li>兄弟选择器：选择当前元素后面的所有合乎规则的兄弟元素。~连接。适用于IE7以上版本。</li>
+<li>相邻兄弟选择器：仅仅选择当前元素相邻的那个合乎规则的兄弟元素。+连接。适用于IE7以上版本。</li>
+</ul>
+<h1 id="流、元素与基本尺寸"><a href="#流、元素与基本尺寸" class="headerlink" title="流、元素与基本尺寸"></a>流、元素与基本尺寸</h1><p>HTML常见的标签有<code>&lt;div&gt;</code>、<code>&lt;p&gt;</code>、<code>&lt;li&gt;</code>和<code>&lt;table&gt;</code>以及<code>&lt;span&gt;</code>、<code>&lt;img&gt;</code>、和<code>&lt;em&gt;</code>等。虽然标签种类繁多，但通常我们就把它们分为两类：块级元素（block-level element）和内联元素（inline element）。</p>
+<h2 id="块级元素"><a href="#块级元素" class="headerlink" title="块级元素"></a>块级元素</h2><p>“块级元素”对应的英文是block-level element，常见的块级元素有<div>、<li>和<table>等。需要注意是，“块级元素”和“display为block的元素”不是一个概念。例如，<li>元素默认的display值是list-item，<table>元素默认的display值是table，但是它们均是“块级元素”，因为它们都符合块级元素的基本特征，也就是一个水平流上只能单独显示一个元素，多个块级元素则换行显示。</table></li></table></li></div></p>
+<p>每个元素都有两个盒子，外在盒子和容器盒子，外在盒子控制元素是可以一行显示还是只能换行显示，内联盒子控制宽高、内容呈现等。</p>
+<p>按照display属性值的不同，值为block的元素的盒子实际由外在的“块级盒子”和内在的“块级容器盒子”组成，值为inline-block的元素则由外在的“内联盒子”和内在的“块级容器盒子”组成。</p>
+<p>display属性值是inline-block的元素既能和图文一行显示，又能直接设置width/height了吧！因为有两个盒子，外面的盒子是inline级别，里面的盒子是block级别。实际上，如果遵循这种理解，display:block应该脑补成display:block-block，display:table应该脑补成display:block-table，我们平时的写法实际上是一种简写。</p>
+<h2 id="内联元素"><a href="#内联元素" class="headerlink" title="内联元素"></a>内联元素</h2><p>”内联级元素“在这里简称内联元素。流体布局的本质就是inline和block。从作用上来讲，块级负责结构，内联负责内容。所谓图文，指图片和文字，是最典型的内联元素。</p>
+<h3 id="哪些元素是内联元素"><a href="#哪些元素是内联元素" class="headerlink" title="哪些元素是内联元素"></a>哪些元素是内联元素</h3><h4 id="从定义看"><a href="#从定义看" class="headerlink" title="从定义看"></a>从定义看</h4><p>首先要明白这一点：“内联元素”的“内联”特指“外在盒子”，和“display为inline的元素”不是一个概念</p>
+<p>inline-block和inline-table都是“内联元素”，因为它们的“外在盒子”都是内联盒子。那么，<code>&lt;button&gt;</code>按钮元素是内联元素，因为其display默认值是inline-block；<code>&lt;img&gt;</code>图片元素也是内联元素，因为其display默认值是inline等。</p>
+<h4 id="从表现看"><a href="#从表现看" class="headerlink" title="从表现看"></a>从表现看</h4><p>就行为表现来看，“内联元素”的典型特征就是可以和文字在一行显示。因此，文字是内联元素，图片是内联元素，按钮是内联元素，输入框、下拉框等原生表单控件也是内联元素。</p>
+<p>下面有一个疑问：浮动元素貌似也是可以和文字在一个水平上显示的，是不是浮动元素也是内联级别的呢？不是的。实际上，浮动元素和后面的文字并不在一行显示，浮动元素已经在文档流之外了。证据就是，当后面文字足够多的时候，文字并不是在浮动元素的下面，而是继续在后面。这就说明，浮动元素和后面文字不在一行，只是它们恰好站在了一起而已。真相是，浮动元素会生成“块盒子”，这就是后话了。</p>
+<h1 id="CSS定位"><a href="#CSS定位" class="headerlink" title="CSS定位"></a>CSS定位</h1><p>笔记来源：<a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html" target="_blank" rel="noopener">CSS定位详解</a></p>
+<h2 id="一、postion属性的作用"><a href="#一、postion属性的作用" class="headerlink" title="一、postion属性的作用"></a>一、postion属性的作用</h2><p>postion属性用来指定一个元素在网页上的位置，一共有5种定位方式：</p>
+<ul>
+<li>static</li>
+<li>relative</li>
+<li>fixed</li>
+<li>absolute</li>
+<li>sticky  (2017年浏览器才支持)</li>
+</ul>
+<h2 id="二、static属性值"><a href="#二、static属性值" class="headerlink" title="二、static属性值"></a>二、static属性值</h2><p>static是postion的默认值。这时浏览器会按照源码的顺序决定每个元素的位置，这时 top、bottom、left、right这四个属性无效。</p>
+<h2 id="三、relative，absolute、fixed"><a href="#三、relative，absolute、fixed" class="headerlink" title="三、relative，absolute、fixed"></a>三、relative，absolute、fixed</h2><p>relative、absolute、fixed这三个属性值有一个共同点，都是相对于某个基点的定位，不同之处仅仅在于基点不同。这三种定位都不会影响其他元素的位置，因此元素之间可能会产生重叠。</p>
+<h3 id="3-1-relative属性值"><a href="#3-1-relative属性值" class="headerlink" title="3.1 relative属性值"></a>3.1 relative属性值</h3><p>relative表示，相对于默认位置（即static时的位置）进行偏移，即定位基点是元素的默认位置。</p>
+<p>它必须搭配top、bottom、left、right这四个属性一起使用，用来指定偏移的方向和距离</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">div&#123;</span><br><span class="line">	postion: relative;</span><br><span class="line">	top: 20px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-2-absolute属性"><a href="#3-2-absolute属性" class="headerlink" title="3.2 absolute属性"></a>3.2 absolute属性</h3><p>absolute表示，相对于上级元素（一般是父元素）进行偏移，即定位基点是父元素。</p>
+<p>它有一个重要的限制条件：父元素的postion不能是static（默认）定位，否则定位基点就会变成整个网页的根元素html。另外，absolute定位也必须搭配top、bottom、left、right这四个属性一起使用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=&quot;father&quot;&gt;</span><br><span class="line">	&lt;div id=&quot;son&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">#father&#123;</span><br><span class="line">	postion: relative;</span><br><span class="line">&#125;</span><br><span class="line">#son&#123;</span><br><span class="line">	postion: absolute;</span><br><span class="line">	top: 20px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意： absolute定位的元素会被“正常的页面流”忽略，即在“正常的页面流”里，该元素所占的空间为0，周边元素不受影响。</p>
+<h3 id="3-3-fixed属性"><a href="#3-3-fixed属性" class="headerlink" title="3.3 fixed属性"></a>3.3 fixed属性</h3><p>fixed表示，相对于浏览器窗口进行偏移，即定位基点是浏览器窗口。这会导致元素的位置不随页面滚动而变化，好像固定在网页上一样。</p>
+<p> 它如果搭配<code>top</code>、<code>bottom</code>、<code>left</code>、<code>right</code>这四个属性一起使用，表示元素的初始位置是基于视口计算的，否则初始位置就是元素的默认位置。 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">div&#123;</span><br><span class="line">	postion: fixed;</span><br><span class="line">	top: 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p> 上面代码中，<code>div</code>元素始终在视口顶部，不随网页滚动而变化。 </p>
+<h2 id="四、sticky属性值"><a href="#四、sticky属性值" class="headerlink" title="四、sticky属性值"></a>四、sticky属性值</h2><p><code>sticky</code>跟前面四个属性值都不一样，它会产生动态效果，很像<code>relative</code>和<code>fixed</code>的结合：一些时候是<code>relative</code>定位（定位基点是自身默认位置），另一些时候自动变成<code>fixed</code>定位（定位基点是视口）。</p>
+<p> 因此，它能够形成”动态固定”的效果。比如，网页的搜索工具栏，初始加载时在自己的默认位置（<code>relative</code>定位）。 </p>
+<p> 页面向下滚动时，工具栏变成固定位置，始终停留在页面头部（<code>fixed</code>定位），等到页面重新向上滚动回到原位，工具栏也会回到默认位置。 </p>
+<p><code>sticky</code>生效的前提是，必须搭配<code>top</code>、<code>bottom</code>、<code>left</code>、<code>right</code>这四个属性一起使用，不能省略，否则等同于<code>relative</code>定位，不产生”动态固定”的效果。原因是这四个属性用来定义”偏移距离”，浏览器把它当作<code>sticky</code>的生效门槛。</p>
+<p>它的具体规则是，当页面滚动，父元素开始脱离视口时（即部分不可见），只要与<code>sticky</code>元素的距离达到生效门槛，<code>relative</code>定位自动切换为<code>fixed</code>定位；等到父元素完全脱离视口时（即完全不可见），<code>fixed</code>定位自动切换回<code>relative</code>定位。</p>
+<p>请看下面的示例代码。（注意，除了已被淘汰的 IE 以外，其他浏览器目前都支持<code>sticky</code>。但是，Safari 浏览器需要加上浏览器前缀<code>-webkit-</code>。）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#toolbar &#123;</span><br><span class="line">  position: -webkit-sticky; /* safari 浏览器 */</span><br><span class="line">  position: sticky; /* 其他浏览器 */</span><br><span class="line">  top: 20px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面代码中，页面向下滚动时，<code>#toolbar</code>的父元素开始脱离视口，一旦视口的顶部与<code>#toolbar</code>的距离小于<code>20px</code>（门槛值），<code>#toolbar</code>就自动变为<code>fixed</code>定位，保持与视口顶部<code>20px</code>的距离。页面继续向下滚动，父元素彻底离开视口（即整个父元素完全不可见），<code>#toolbar</code>恢复成<code>relative</code>定位。</p>
+<p><a href="https://jsbin.com/fegiqoquki/edit?html,css,output" target="_blank" rel="noopener">sticky属性Demo</a></p>
+
+        
+    </section>
+</article>
+
+
+
+<a id="pagenext" href="/2019/10/14/audio播放音频报错/" class="article-next" title="audio播放音频报错"><i class="icon-arrow-right"></i></a>
+
+
+<a id="pageprev" href="/2019/12/12/小程序构建npm异常/" class="article-prev" title="小程序构建npm异常"><i class="icon-arrow-left"></i></a>
+
+
+
+
+            </div>
+        </div>
+        <footer class="footer">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme by <a href="https://github.com/sanonz/hexo-theme-concise" target="_blank">Concise</a>
+
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?e4027971a230b210f4671f485b33846a";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+    
+</footer>
+
+    </main>
+
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        var nodes = {
+            nav: $('#nav'),
+            aside: $('#aside'),
+            asideInner: $('#aside-inner'),
+            navInner: $('#nav-inner')
+        };
+
+        var doing = false;
+        nodes.asideInner.on('webkitAnimationEnd mozAnimationEnd oAnimationEnd oanimationend animationend', function() {
+            if (nodes.aside.hasClass('mobile-open')) {
+                nodes.aside.removeClass('mobile-open');
+            } else {
+                nodes.aside.removeClass('mobile-close panel-show');
+            }
+            doing = false;
+        });
+        $('#open-panel, #aside-mask').on('click', function() {
+            if (doing) {
+                return;
+            }
+
+            if (nodes.aside.hasClass('panel-show')) {
+                nodes.aside.addClass('mobile-close');
+            } else {
+                nodes.aside.addClass('mobile-open panel-show');
+            }
+        });
+        $('#open-menus').on('click', function() {
+            nodes.navInner.slideToggle();
+        });
+
+        if (window.innerWidth <= 960) {
+            setTimeout(function() {
+                nodes.navInner.slideUp();
+            }, 3000);
+        }
+    });
+    </script>
+    
+        <script src="/js/scrollspy.min.js"></script>
+        <script type="text/javascript">
+        $(document.body).scrollspy({target: '#aside-inner'});
+
+        $(window).on('resize', function() {
+            var hw = $('#header').width();
+            var ww = $('#wrapper').width();
+            var space = ($(this).width() - hw - ww) / 2 / 2;
+
+            var pageprev = $('#pageprev');
+            var pagenext = $('#pagenext');
+            var avg = (pageprev.width() + pagenext.width()) / 2
+
+            if(space > avg) {
+                var len = space - avg / 2;
+                var styles = {position: 'fixed', top: '50%', marginTop: - (pageprev.width() + pagenext.width()) / 4}
+                pageprev.css($.extend({left: hw + len}, styles));
+                pagenext.css($.extend({right: len}, styles));
+            } else {
+                pageprev.removeAttr('style');
+                pagenext.removeAttr('style');
+            }
+        }).trigger('resize');
+        </script>
+    
+
+</body>
+</html>

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+
+    
+
+    
+
+    <title>JS知识点 | 张恒的Blog</title>
+    <meta name="author" content="ZhangHeng">
+    <meta name="keywords" content>
+    <meta name="description" content="手写一个callcall与apply简单介绍：call和apply方法都是使用一个指定的this值和对应的参数前提下调用某个函数或方法。区别则在于call是通过传多个参数的方式，而apply则是传入一个数组。模拟实现思路：在JavaScript中的this指向说到了：函数还可以作为某个对象的方法调用，这时this就指这个上级对象。也就是我们平时说的，谁调用，this就指向谁。所以实现的方法就是在传入的对象中添加这么一个方法，然后再去执行这个方法。为了保持对象一直，在执行完之后再把这个...">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+
+    
+    
+    <link rel="icon" href="/images/favicon.ico">
+    
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'icomoon';
+        src: url("/fonts/icomoon.eot?q628ml");
+        src: url("/fonts/icomoon.eot?q628ml#iefix") format('embedded-opentype'),
+             url("/fonts/icomoon.ttf?q628ml") format('truetype'),
+             url("/fonts/icomoon.woff?q628ml") format('woff'),
+             url("/fonts/icomoon.svg?q628ml#icomoon") format('svg');
+        font-weight: normal;
+        font-style: normal;
+    }
+    </style>
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!--[if lt IE 9]>
+    <style type="text/css">
+    .nav-inner {top:0;}
+    .author-meta {position:static;top:0;}
+    .search-form {height:36px;}
+    </style>
+    <script type="text/javascript" src="https://unpkg.com/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+    <main class="app">
+        <header id="header" class="header clearfix">
+    <div id="nav" class="nav">
+    <div class="nav-mobile">
+        <button id="open-panel" class="open-panel nav-mobile-item"><i class="icon-documents"></i></button>
+        <h1 class="nav-mobile-title nav-mobile-item">张恒的Blog</h1>
+        <button id="open-menus" class="open-panel nav-mobile-item"><i class="icon-library"></i></button>
+    </div>
+
+    <nav id="nav-inner" class="nav-inner">
+        
+            <a class="nav-item" href="/">
+                <span class="nav-text">首页</span>
+            </a>
+        
+            <a class="nav-item" href="/tags">
+                <span class="nav-text">标签</span>
+            </a>
+        
+            <a class="nav-item" href="/archives">
+                <span class="nav-text">归档</span>
+            </a>
+        
+            <a class="nav-item" href="/about">
+                <span class="nav-text">关于</span>
+            </a>
+        
+    </nav>
+</div>
+
+    <aside id="aside" class="aside">
+    <div id="aside-mask" class="aside-mask"></div>
+    <div id="aside-inner" class="aside-inner">
+        <!-- <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="https://zhanghenggetup.github.io"></form> -->
+
+        
+        
+        
+        
+
+        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#手写一个call"><span class="toc-number">1.</span> <span class="toc-text">手写一个call</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#call与apply"><span class="toc-number">1.0.1.</span> <span class="toc-text">call与apply</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#模拟实现"><span class="toc-number">1.0.2.</span> <span class="toc-text">模拟实现</span></a></li></ol></li></ol><li class="toc-item toc-level-1"><a class="toc-link" href="#构造函数和new"><span class="toc-number">2.</span> <span class="toc-text">构造函数和new</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#对象的概念"><span class="toc-number">2.1.</span> <span class="toc-text">对象的概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#构造函数"><span class="toc-number">2.2.</span> <span class="toc-text">构造函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#new命令"><span class="toc-number">2.3.</span> <span class="toc-text">new命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#基本原理"><span class="toc-number">2.3.1.</span> <span class="toc-text">基本原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#基本用法"><span class="toc-number">2.3.2.</span> <span class="toc-text">基本用法</span></a></li></ol></li></ol></li>
+        
+    </div>
+</aside>
+</header>
+
+        <div id="content" class="content">
+            <div id="wrapper" class="wrapper" style="max-width: 800px">
+                <article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            JS知识点
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="https://zhanghenggetup.github.io/2020/06/10/JS知识点/index.html">
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2020-06-10T08:11:58.000Z" itemprop="datePublished">2020-06-10</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/面经/">面经</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <h1 id="手写一个call"><a href="#手写一个call" class="headerlink" title="手写一个call"></a>手写一个call</h1><h3 id="call与apply"><a href="#call与apply" class="headerlink" title="call与apply"></a>call与apply</h3><p>简单介绍：call和apply方法都是使用一个指定的this值和对应的参数前提下调用某个函数或方法。区别则在于call是通过传多个参数的方式，而apply则是传入一个数组。</p>
+<a id="more"></a>
+
+<h3 id="模拟实现"><a href="#模拟实现" class="headerlink" title="模拟实现"></a>模拟实现</h3><p>思路：在<a href="https://github.com/Abiel1024/blog/issues/15" target="_blank" rel="noopener">JavaScript中的this指向</a>说到了：函数还可以作为某个对象的方法调用，这时this就指这个上级对象。也就是我们平时说的，谁调用，this就指向谁。所以实现的方法就是在传入的对象中添加这么一个方法，然后再去执行这个方法。为了保持对象一直，在执行完之后再把这个对象给删除了。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.myCall = <span class="function">(<span class="params">context, ...parameter</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> context === <span class="string">'object'</span>) &#123;</span><br><span class="line">        context = context || <span class="built_in">window</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        context = <span class="built_in">Object</span>.create(<span class="literal">null</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">let</span> fn = <span class="built_in">Symbol</span>()</span><br><span class="line">    context[fn] = <span class="keyword">this</span></span><br><span class="line">    context[fn](...parameter)</span><br><span class="line">    <span class="keyword">delete</span> context[fn]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Function</span>.prototype.myApply = <span class="function">(<span class="params">context, parameter</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> context === <span class="string">'object'</span>) &#123;</span><br><span class="line">        context = context || <span class="built_in">window</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        context = <span class="built_in">Object</span>.create(<span class="literal">null</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">let</span> fn = <span class="built_in">Symbol</span>()</span><br><span class="line">    context[fn] = <span class="keyword">this</span></span><br><span class="line">    context[fn](...parameter)</span><br><span class="line">    <span class="keyword">delete</span> context[fn]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="构造函数和new"><a href="#构造函数和new" class="headerlink" title="构造函数和new"></a>构造函数和new</h1><h2 id="对象的概念"><a href="#对象的概念" class="headerlink" title="对象的概念"></a>对象的概念</h2><p>​    “面向对象编程”（Object Oriented Programmming，缩写为OOP）是目前主流的编程范式。它的核心思想是把真实世界里的各种复杂关系，抽象成一个个的对象，然后由各个对象之间的分工和合作，对真实世界进行模拟。总结如下：</p>
+<p>​    <strong>对象是单个实物的抽象</strong></p>
+<p>​    <strong>对象是一个容器，封装了‘属性’和‘方法’</strong></p>
+<p>​    一本书、一个人、一辆汽车都可以是一个对象，当实物抽象成了对象，实物之间的关系就变成对象之间的关系，从而模拟现实情况，针对对象进行编程。</p>
+<p>​    所谓属性，就是对象的一种状态；所谓方法，就是对象的一种行为。</p>
+<p>​    比如说，一个animal类，属性就是动物的身高体重大小颜色等状态，方法就是奔跑睡觉喝水等行为。</p>
+<h2 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h2><p>​    面向对象编程的第一步，就是要生成对象。JS中面向对象编程时基于构造函数（constructor）和原型链（prototype）来实现的。</p>
+<p>​    前面说过，对象时单个实物的抽象。实际编程中通常需要一个模板来表示某一事物的共同特征，然后对象根据这个模板生成。</p>
+<p>​    JS语言中使用构造函数（constructor）来作为对象的模板（ES6语法中扩展了class语法糖）。所谓构造函数，就是提供一个生成对象的模板，并描述对象的基本结构的函数。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Keith = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.height = <span class="number">100</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 同上</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Keith</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.height = <span class="number">100</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​    上面代码中，Krith就是一个构造函数，它提供模板，用来生成实例对象。为了与普通函数区别，构造函数的第一个字母通常大写。构造函数的特点：</p>
+<ol>
+<li>​    <strong>构造函数的第一个字母通常大写</strong></li>
+<li>​    <strong>函数体内使用this关键字，代表所要生成的实例对象</strong></li>
+<li>​    <strong>生成对象时，必须用new命令来调用构造函数</strong></li>
+</ol>
+<h2 id="new命令"><a href="#new命令" class="headerlink" title="new命令"></a>new命令</h2><h3 id="基本原理"><a href="#基本原理" class="headerlink" title="基本原理"></a>基本原理</h3><p>​    <strong>new</strong>命令的作用，就是执行一个构造函数，并返回一个实例对象，使用<strong>new</strong>命令时，它后面的函数调用就不是正常的调用，而是依次执行下面的步骤：</p>
+<ol>
+<li><p>​    <strong>创建一个空对象，作为将要返回的对象实例</strong></p>
+</li>
+<li><p>​    <strong>将空对象的原型指向了构造函数的prototype属性</strong></p>
+</li>
+<li><p>​    <strong>将空对象赋值给构造函数内部的this关键字</strong></p>
+</li>
+<li><p>​    <strong>执行构造函数内部的代码</strong></p>
+<p>也就是说，构造函数内部，this指向的是一个新生成的空对象，所有针对this的操作，都会发生在这个空对象上。构造函数之所谓构造函数，意思是这个函数的目的就是操作一个空对象（即this）对象，将其构造为所需要的样子。</p>
+</li>
+</ol>
+<h3 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h3><p>​        当我们使用new来调用构造函数时，new命令会创建一个空对象boy，作为将要返回的实例对象。接着，这个空对象的原型会指向构造函数Parent的prototype属性。也就是boy.prototype===Person.prototype的。要注意的是空对象指向构造函数Parent的prototype属性，而不是指向构造函数本身。然后，我们将这个空对象赋值给构造函数内部的this关键字。也就是说，让构造函数内部的this关键字指向一个对象实例。最后，开始执行构造函数内部代码。</p>
+<p>​        一个问题，如果我们忘记使用new命令来调用构造函数，直接调用构造函数了，会发生什么？</p>
+<p>　　这种情况下，构造函数就变成了普通函数，并不会生成实例对象。而且由于后面会说到的原因，<code>this</code>这时代表全局对象</p>
+<p>　    为了保证构造函数必须与<code>new</code>命令一起使用，一个解决办法是，在构造函数内部使用严格模式，即第一行加上<code>use strict</code>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function Person(name, height) &#123;</span><br><span class="line">    &apos;use strict&apos;;</span><br><span class="line">    this.name = name;</span><br><span class="line">    this.height = height;</span><br><span class="line">&#125;</span><br><span class="line">var boy = Person();</span><br><span class="line">console.log(boy) //TypeError: name is undefined</span><br></pre></td></tr></table></figure>
+
+<p>​        上面代码的<code>Person</code>为构造函数，<code>use strict</code>命令保证了该函数在严格模式下运行。由于在严格模式中，函数内部的<code>this</code>不能指向全局对象。如果指向了全局，this默认等于<code>undefined</code>，导致不加<code>new</code>调用会报错（JavaScript不允许对<code>undefined</code>添加属性）。</p>
+<p>　　另一个解决办法，是在构造函数内部判断是否使用<code>new</code>命令，如果发现没有使用，则直接返回一个实例对象。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function Person(name, height) &#123;</span><br><span class="line">if (!(this instanceof Person)) &#123;</span><br><span class="line">       return new Person(name, height);</span><br><span class="line">    &#125;</span><br><span class="line">   this.name = name;</span><br><span class="line">    this.height = height;</span><br><span class="line">&#125;</span><br><span class="line">var boy = Person(&apos;Keith&apos;);</span><br><span class="line">console.log(boy.name) //&apos;Keith&apos;</span><br></pre></td></tr></table></figure>
+
+<p>​        如果构造函数内部有<code>return</code>语句，而且<code>return</code>后面跟着一个复杂数据类型（对象，数组等），<code>new</code>命令会返回<code>return</code>语句指定的对象；如果return语句后面跟着一个简单数据类型（字符串，布尔值，数字等），则会忽略return语句，返回this对象。如果对普通函数（内部没有<code>this</code>关键字的函数）使用<code>new</code>命令，则会返回一个空对象。</p>
+
+        
+    </section>
+</article>
+
+
+
+<a id="pagenext" href="/2019/12/19/window-open-被拦截/" class="article-next" title="window.open()被拦截"><i class="icon-arrow-right"></i></a>
+
+
+<a id="pageprev" href="/2020/07/06/MyCopy/" class="article-prev" title="MyCopy"><i class="icon-arrow-left"></i></a>
+
+
+
+
+            </div>
+        </div>
+        <footer class="footer">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme by <a href="https://github.com/sanonz/hexo-theme-concise" target="_blank">Concise</a>
+
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?e4027971a230b210f4671f485b33846a";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+    
+</footer>
+
+    </main>
+
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        var nodes = {
+            nav: $('#nav'),
+            aside: $('#aside'),
+            asideInner: $('#aside-inner'),
+            navInner: $('#nav-inner')
+        };
+
+        var doing = false;
+        nodes.asideInner.on('webkitAnimationEnd mozAnimationEnd oAnimationEnd oanimationend animationend', function() {
+            if (nodes.aside.hasClass('mobile-open')) {
+                nodes.aside.removeClass('mobile-open');
+            } else {
+                nodes.aside.removeClass('mobile-close panel-show');
+            }
+            doing = false;
+        });
+        $('#open-panel, #aside-mask').on('click', function() {
+            if (doing) {
+                return;
+            }
+
+            if (nodes.aside.hasClass('panel-show')) {
+                nodes.aside.addClass('mobile-close');
+            } else {
+                nodes.aside.addClass('mobile-open panel-show');
+            }
+        });
+        $('#open-menus').on('click', function() {
+            nodes.navInner.slideToggle();
+        });
+
+        if (window.innerWidth <= 960) {
+            setTimeout(function() {
+                nodes.navInner.slideUp();
+            }, 3000);
+        }
+    });
+    </script>
+    
+        <script src="/js/scrollspy.min.js"></script>
+        <script type="text/javascript">
+        $(document.body).scrollspy({target: '#aside-inner'});
+
+        $(window).on('resize', function() {
+            var hw = $('#header').width();
+            var ww = $('#wrapper').width();
+            var space = ($(this).width() - hw - ww) / 2 / 2;
+
+            var pageprev = $('#pageprev');
+            var pagenext = $('#pagenext');
+            var avg = (pageprev.width() + pagenext.width()) / 2
+
+            if(space > avg) {
+                var len = space - avg / 2;
+                var styles = {position: 'fixed', top: '50%', marginTop: - (pageprev.width() + pagenext.width()) / 4}
+                pageprev.css($.extend({left: hw + len}, styles));
+                pagenext.css($.extend({right: len}, styles));
+            } else {
+                pageprev.removeAttr('style');
+                pagenext.removeAttr('style');
+            }
+        }).trigger('resize');
+        </script>
+    
+
+</body>
+</html>

@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+
+    
+
+    
+
+    <title>关于SEO | 张恒的Blog</title>
+    <meta name="author" content="ZhangHeng">
+    <meta name="keywords" content>
+    <meta name="description" content="众所周知，Vue SPA单页面应用对SEO不友好，当然也有相应的解决方案。下面列出几种最近在网上找到的几种方案。SSR服务器渲染静态化预渲染 prerender-spa-plugin + vue-meta-info搜索引擎工作原理爬虫抓取网页内容一般爬虫抓取页面内容是从一个页面出发，从中提取其他页面的链接，然后当作下一个请求的对象，一直重复这个过程。所以要有良好的seo，需要你在各大网站上拥有外链，这样子会提高你的网站被搜索引擎爬虫的几率。分析网页内容爬虫拿到HTML...">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+
+    
+    
+    <link rel="icon" href="/images/favicon.ico">
+    
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'icomoon';
+        src: url("/fonts/icomoon.eot?q628ml");
+        src: url("/fonts/icomoon.eot?q628ml#iefix") format('embedded-opentype'),
+             url("/fonts/icomoon.ttf?q628ml") format('truetype'),
+             url("/fonts/icomoon.woff?q628ml") format('woff'),
+             url("/fonts/icomoon.svg?q628ml#icomoon") format('svg');
+        font-weight: normal;
+        font-style: normal;
+    }
+    </style>
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!--[if lt IE 9]>
+    <style type="text/css">
+    .nav-inner {top:0;}
+    .author-meta {position:static;top:0;}
+    .search-form {height:36px;}
+    </style>
+    <script type="text/javascript" src="https://unpkg.com/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+    <main class="app">
+        <header id="header" class="header clearfix">
+    <div id="nav" class="nav">
+    <div class="nav-mobile">
+        <button id="open-panel" class="open-panel nav-mobile-item"><i class="icon-documents"></i></button>
+        <h1 class="nav-mobile-title nav-mobile-item">张恒的Blog</h1>
+        <button id="open-menus" class="open-panel nav-mobile-item"><i class="icon-library"></i></button>
+    </div>
+
+    <nav id="nav-inner" class="nav-inner">
+        
+            <a class="nav-item" href="/">
+                <span class="nav-text">首页</span>
+            </a>
+        
+            <a class="nav-item" href="/tags">
+                <span class="nav-text">标签</span>
+            </a>
+        
+            <a class="nav-item" href="/archives">
+                <span class="nav-text">归档</span>
+            </a>
+        
+            <a class="nav-item" href="/about">
+                <span class="nav-text">关于</span>
+            </a>
+        
+    </nav>
+</div>
+
+    <aside id="aside" class="aside">
+    <div id="aside-mask" class="aside-mask"></div>
+    <div id="aside-inner" class="aside-inner">
+        <!-- <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="https://zhanghenggetup.github.io"></form> -->
+
+        
+        
+        
+        
+
+        
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#搜索引擎工作原理"><span class="toc-number">1.</span> <span class="toc-text">搜索引擎工作原理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#爬虫抓取网页内容"><span class="toc-number">1.1.</span> <span class="toc-text">爬虫抓取网页内容</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#分析网页内容"><span class="toc-number">1.2.</span> <span class="toc-text">分析网页内容</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#搜索和排序"><span class="toc-number">1.3.</span> <span class="toc-text">搜索和排序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#那么为什么前后端分离不利于SEO呢？"><span class="toc-number">1.4.</span> <span class="toc-text">那么为什么前后端分离不利于SEO呢？</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#前端编码的SEO"><span class="toc-number">2.</span> <span class="toc-text">前端编码的SEO</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#网站结构"><span class="toc-number">2.1.</span> <span class="toc-text">网站结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#导航"><span class="toc-number">2.2.</span> <span class="toc-text">导航</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#规范的URL"><span class="toc-number">2.3.</span> <span class="toc-text">规范的URL</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#提交Sitemap"><span class="toc-number">2.4.</span> <span class="toc-text">提交Sitemap</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#robot-txt"><span class="toc-number">2.5.</span> <span class="toc-text">robot.txt</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#合理的HTTP返回码"><span class="toc-number">2.6.</span> <span class="toc-text">合理的HTTP返回码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#合适的title"><span class="toc-number">2.7.</span> <span class="toc-text">合适的title</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#合适的description"><span class="toc-number">2.8.</span> <span class="toc-text">合适的description</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#HTML语义化"><span class="toc-number">2.9.</span> <span class="toc-text">HTML语义化</span></a></li></ol></li></ol>
+        
+    </div>
+</aside>
+</header>
+
+        <div id="content" class="content">
+            <div id="wrapper" class="wrapper" style="max-width: 800px">
+                <article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            关于SEO
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="https://zhanghenggetup.github.io/2020/09/21/关于SEO/index.html">
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2020-09-21T08:22:15.000Z" itemprop="datePublished">2020-09-21</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/SEO/">SEO</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <p>众所周知，Vue SPA单页面应用对SEO不友好，当然也有相应的解决方案。下面列出几种最近在网上找到的几种方案。</p>
+<ol>
+<li>SSR服务器渲染</li>
+<li>静态化</li>
+<li>预渲染 prerender-spa-plugin + vue-meta-info</li>
+</ol>
+<a id="more"></a>
+
+<h3 id="搜索引擎工作原理"><a href="#搜索引擎工作原理" class="headerlink" title="搜索引擎工作原理"></a>搜索引擎工作原理</h3><ol>
+<li><h4 id="爬虫抓取网页内容"><a href="#爬虫抓取网页内容" class="headerlink" title="爬虫抓取网页内容"></a>爬虫抓取网页内容</h4><p>一般爬虫抓取页面内容是从一个页面出发，从中提取其他页面的链接，然后当作下一个请求的对象，一直重复这个过程。所以要有良好的seo，需要你在各大网站上拥有外链，这样子会提高你的网站被搜索引擎爬虫的几率。</p>
+</li>
+<li><h4 id="分析网页内容"><a href="#分析网页内容" class="headerlink" title="分析网页内容"></a>分析网页内容</h4><p>爬虫拿到HTML之后，就会对其内容进行分析。一般要去杂、分词、建立索引数据库等。什么是索引数据库呢？简单的说就是记录一个词在哪些文档中出现、出现次数、出现的位置等等。建立索引数据库可以方便快速查找</p>
+</li>
+<li><h4 id="搜索和排序"><a href="#搜索和排序" class="headerlink" title="搜索和排序"></a>搜索和排序</h4><p>搜索会根据你输入的关键字，分别查询其对应的索引数据库，并对结果进行处理和排序。</p>
+</li>
+<li><h4 id="那么为什么前后端分离不利于SEO呢？"><a href="#那么为什么前后端分离不利于SEO呢？" class="headerlink" title="那么为什么前后端分离不利于SEO呢？"></a>那么为什么前后端分离不利于SEO呢？</h4><ol>
+<li>搜索引擎的基础爬虫原理就是抓取你的url，然后获取你的html源代码并解析。而你的页面通常用了vue等js的数据绑定机制来展示页面数据，爬虫获取到的html是你的模型页面而不是最终数据的渲染页面，所以说用js来渲染数据对seo不友好。</li>
+<li>seo本质上是一个服务器向另一个服务器发起请求，解析请求内容。但一般来说搜索引擎是不会去执行请求到的js的。也就是说，如果一个单页面应用，html在服务器端还没有渲染部分数据，在浏览器才渲染出数据，这时候搜索引擎请求到的html是没有渲染数据的。这样就很不利于内容被搜索引擎搜索到。</li>
+<li>一般的数据逻辑操作时放在服务端的，例如一个列表页面，如果有1000条数据，前端要全部请求过来再处理，这显然是不合理的。</li>
+</ol>
+</li>
+</ol>
+<h3 id="前端编码的SEO"><a href="#前端编码的SEO" class="headerlink" title="前端编码的SEO"></a>前端编码的SEO</h3><h4 id="网站结构"><a href="#网站结构" class="headerlink" title="网站结构"></a>网站结构</h4><p>网站结构要清晰。一般网站的结构是树形的，一般分为三个层次：首页 → 频道页（列表页） → 文章页（详情页）。</p>
+<p>网站的机构要扁平，结构层数越少越好，一般不要超过三层，搜索引擎一般到了第三层就不想继续深入的爬取了。多数的网站，例如掘金、雪球等，他们的网站结构是两层，他们的首页和频道页是同一个页面。</p>
+<h4 id="导航"><a href="#导航" class="headerlink" title="导航"></a>导航</h4><p>页面应该要有简明的导航。导航可以让搜索引擎知道网络的结构，也可以让搜索引擎知道当前页面在网站结构中的层次。建议：</p>
+<ul>
+<li>每一个页面都包含导航。</li>
+<li>对于内容较多的网站可以采用面包屑导航。</li>
+<li>链接使用文字链接，如果是图片，则通过<code>alt</code>属性告诉搜索引擎链接的指向。</li>
+</ul>
+<h4 id="规范的URL"><a href="#规范的URL" class="headerlink" title="规范的URL"></a>规范的URL</h4><p>规范、简单、易理解的URL能让搜索引擎更好的抓取内容。建议：</p>
+<ul>
+<li>同一个页面，只对应一个url。多个url可以采用301进行重定向。</li>
+<li>url可以反应网站内容及网站结构信息。例如<a href="http://www.a.com/blog、www.a.com/blog/123、www.a.com/article。" target="_blank" rel="noopener">www.a.com/blog、www.a.com/blog/123、www.a.com/article。</a></li>
+<li>url尽量简短。</li>
+<li>尽量减少动态url中包含的变量参数。</li>
+</ul>
+<h4 id="提交Sitemap"><a href="#提交Sitemap" class="headerlink" title="提交Sitemap"></a>提交Sitemap</h4><p>Sitemap可通知搜索引擎他们网站上有哪些可供抓取的网页，以便搜索引擎可以更智能的抓取网站。</p>
+<h4 id="robot-txt"><a href="#robot-txt" class="headerlink" title="robot.txt"></a>robot.txt</h4><p>搜索引擎爬行网站第一个访问的文件就是robot.txt。在这个文件中声明该网站中不想被蜘蛛访问的部分，这样，该网站的部分或全部内容就可以不被搜索引擎访问和收录了，或者可以通过robots.txt指定使搜索引擎只收录指定的内容。</p>
+<h4 id="合理的HTTP返回码"><a href="#合理的HTTP返回码" class="headerlink" title="合理的HTTP返回码"></a>合理的HTTP返回码</h4><p>不同的返回码，搜索引擎的处理逻辑是不一样的。</p>
+<ul>
+<li>如果站点临时关闭，当网页不能打开时，建议使用503状态。503可以告知百度spider该页面临时不可访问，请过段时间再重试。</li>
+<li>如果百度spider对您的站点抓取压力过大，请尽量不要使用404，同样建议返回503。这样百度spider会过段时间再来尝试抓取这个链接，如果那个时间站点空闲，那它就会被成功抓取了。</li>
+<li>有一些网站希望百度只收录部分内容，例如审核后的内容，累积一段时间的新用户页等等。再这种情况，建议新发内容展示返回403，等审核或做好处理之后，再返回正常状态的返回码。</li>
+<li>站点迁移，或域名更换时，请使用301返回。</li>
+</ul>
+<h4 id="合适的title"><a href="#合适的title" class="headerlink" title="合适的title"></a>合适的title</h4><p>title是告诉搜索引擎网页的主要内容。</p>
+<ul>
+<li>每个网页都应该有一个独一无二的标题，切忌所有的页面都使用默认标题</li>
+<li>标题要主题明确和精炼，包含这个网页中最重要的内容，且不罗列与网页内容不相关的信息</li>
+<li>用户浏览通常是从左到右的，重要的内容应该放在title靠前的位置</li>
+</ul>
+<p>百度建议描述：</p>
+<ul>
+<li>首页：网站名称 或者 网站名称_服务介绍/产品介绍</li>
+<li>频道页：频道名称_网站名称</li>
+<li>文章页：文章标题_频道名称_网站名称</li>
+</ul>
+<h4 id="合适的description"><a href="#合适的description" class="headerlink" title="合适的description"></a>合适的description</h4><p>description是对网页内容的精练概括。这个标签存在与否不影响网页权值，只会用做搜索结果摘要的一个选择目标。 百度推荐做法：</p>
+<ul>
+<li>为每个网页创建不同的description，避免所有网页都使用同样的描述</li>
+<li>网站首页、频道页、产品参数页等没有摘要的网页最适合使用description</li>
+<li>准确的描述网页，不要堆砌关键词，长度合理</li>
+</ul>
+<h4 id="HTML语义化"><a href="#HTML语义化" class="headerlink" title="HTML语义化"></a>HTML语义化</h4><p>HTML语义化是用标签和属性来描述内容。所以<strong>HTML语义化是SEO的基石</strong>。一般建议：</p>
+<ul>
+<li>HTML结构要清晰和简洁</li>
+<li>跳转使用<a>标签，不要使用js跳转</a></li>
+<li>图片加alt说明</li>
+<li>文章用<article>标签承载</article></li>
+</ul>
+
+        
+    </section>
+</article>
+
+
+
+<a id="pagenext" href="/2020/09/21/HTML语义化/" class="article-next" title="HTML语义化"><i class="icon-arrow-right"></i></a>
+
+
+<a id="pageprev" href="/2020/12/17/Vue-TypeScript使用记录/" class="article-prev" title="Vue+TypeScript使用记录"><i class="icon-arrow-left"></i></a>
+
+
+
+
+            </div>
+        </div>
+        <footer class="footer">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme by <a href="https://github.com/sanonz/hexo-theme-concise" target="_blank">Concise</a>
+
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?e4027971a230b210f4671f485b33846a";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+    
+</footer>
+
+    </main>
+
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        var nodes = {
+            nav: $('#nav'),
+            aside: $('#aside'),
+            asideInner: $('#aside-inner'),
+            navInner: $('#nav-inner')
+        };
+
+        var doing = false;
+        nodes.asideInner.on('webkitAnimationEnd mozAnimationEnd oAnimationEnd oanimationend animationend', function() {
+            if (nodes.aside.hasClass('mobile-open')) {
+                nodes.aside.removeClass('mobile-open');
+            } else {
+                nodes.aside.removeClass('mobile-close panel-show');
+            }
+            doing = false;
+        });
+        $('#open-panel, #aside-mask').on('click', function() {
+            if (doing) {
+                return;
+            }
+
+            if (nodes.aside.hasClass('panel-show')) {
+                nodes.aside.addClass('mobile-close');
+            } else {
+                nodes.aside.addClass('mobile-open panel-show');
+            }
+        });
+        $('#open-menus').on('click', function() {
+            nodes.navInner.slideToggle();
+        });
+
+        if (window.innerWidth <= 960) {
+            setTimeout(function() {
+                nodes.navInner.slideUp();
+            }, 3000);
+        }
+    });
+    </script>
+    
+        <script src="/js/scrollspy.min.js"></script>
+        <script type="text/javascript">
+        $(document.body).scrollspy({target: '#aside-inner'});
+
+        $(window).on('resize', function() {
+            var hw = $('#header').width();
+            var ww = $('#wrapper').width();
+            var space = ($(this).width() - hw - ww) / 2 / 2;
+
+            var pageprev = $('#pageprev');
+            var pagenext = $('#pagenext');
+            var avg = (pageprev.width() + pagenext.width()) / 2
+
+            if(space > avg) {
+                var len = space - avg / 2;
+                var styles = {position: 'fixed', top: '50%', marginTop: - (pageprev.width() + pagenext.width()) / 4}
+                pageprev.css($.extend({left: hw + len}, styles));
+                pagenext.css($.extend({right: len}, styles));
+            } else {
+                pageprev.removeAttr('style');
+                pagenext.removeAttr('style');
+            }
+        }).trigger('resize');
+        </script>
+    
+
+</body>
+</html>

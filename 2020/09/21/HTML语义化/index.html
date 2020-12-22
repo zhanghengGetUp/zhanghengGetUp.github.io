@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+
+    
+
+    
+
+    <title>HTML语义化 | 张恒的Blog</title>
+    <meta name="author" content="ZhangHeng">
+    <meta name="keywords" content>
+    <meta name="description" content="语义化的含义语义化，我的理解是根据内容使用有含义的标签或设置有含义的属性。语义化的作用HTML结构更加清晰，有助于阅读和维护方便机器识别内容，有助于SEO语义化标签我把语义化标签分为两类，一类是用于构建结构的容器标签，一类是指定具体含义的标签。以下内容摘自MDN。构建结构的容器标签&amp;lt;header&amp;gt;用于展示介绍性内容，通常包含一组介绍性的或是辅助导航的实用元素。它可能包含一些标题元素，但也可能包含其他元素，比如 Logo、搜索框、作者名称，等等。使用说明：&amp;...">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+
+    
+    
+    <link rel="icon" href="/images/favicon.ico">
+    
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'icomoon';
+        src: url("/fonts/icomoon.eot?q628ml");
+        src: url("/fonts/icomoon.eot?q628ml#iefix") format('embedded-opentype'),
+             url("/fonts/icomoon.ttf?q628ml") format('truetype'),
+             url("/fonts/icomoon.woff?q628ml") format('woff'),
+             url("/fonts/icomoon.svg?q628ml#icomoon") format('svg');
+        font-weight: normal;
+        font-style: normal;
+    }
+    </style>
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!--[if lt IE 9]>
+    <style type="text/css">
+    .nav-inner {top:0;}
+    .author-meta {position:static;top:0;}
+    .search-form {height:36px;}
+    </style>
+    <script type="text/javascript" src="https://unpkg.com/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+    <main class="app">
+        <header id="header" class="header clearfix">
+    <div id="nav" class="nav">
+    <div class="nav-mobile">
+        <button id="open-panel" class="open-panel nav-mobile-item"><i class="icon-documents"></i></button>
+        <h1 class="nav-mobile-title nav-mobile-item">张恒的Blog</h1>
+        <button id="open-menus" class="open-panel nav-mobile-item"><i class="icon-library"></i></button>
+    </div>
+
+    <nav id="nav-inner" class="nav-inner">
+        
+            <a class="nav-item" href="/">
+                <span class="nav-text">首页</span>
+            </a>
+        
+            <a class="nav-item" href="/tags">
+                <span class="nav-text">标签</span>
+            </a>
+        
+            <a class="nav-item" href="/archives">
+                <span class="nav-text">归档</span>
+            </a>
+        
+            <a class="nav-item" href="/about">
+                <span class="nav-text">关于</span>
+            </a>
+        
+    </nav>
+</div>
+
+    <aside id="aside" class="aside">
+    <div id="aside-mask" class="aside-mask"></div>
+    <div id="aside-inner" class="aside-inner">
+        <!-- <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="https://zhanghenggetup.github.io"></form> -->
+
+        
+        
+        
+        
+
+        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#语义化的含义"><span class="toc-number">1.</span> <span class="toc-text">语义化的含义</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#语义化的作用"><span class="toc-number">2.</span> <span class="toc-text">语义化的作用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#语义化标签"><span class="toc-number">3.</span> <span class="toc-text">语义化标签</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#构建结构的容器标签"><span class="toc-number">3.1.</span> <span class="toc-text">构建结构的容器标签</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#lt-header-gt"><span class="toc-number">3.1.1.</span> <span class="toc-text">&lt;header&gt;</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#lt-main-gt"><span class="toc-number">3.1.2.</span> <span class="toc-text">&lt;main&gt;</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#lt-aside-gt"><span class="toc-number">3.1.3.</span> <span class="toc-text">&lt;aside&gt;</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#lt-footer-gt"><span class="toc-number">3.1.4.</span> <span class="toc-text">&lt;footer&gt;</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#lt-nav-gt"><span class="toc-number">3.1.5.</span> <span class="toc-text">&lt;nav&gt;</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#lt-article-gt"><span class="toc-number">3.1.6.</span> <span class="toc-text">&lt;article&gt;</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#lt-section-gt"><span class="toc-number">3.1.7.</span> <span class="toc-text">&lt;section&gt;</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#lt-details-gt"><span class="toc-number">3.1.8.</span> <span class="toc-text">&lt;details&gt;</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#lt-ol-gt-lt-ul-gt"><span class="toc-number">3.1.9.</span> <span class="toc-text">&lt;ol&gt;/&lt;ul&gt;</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#lt-dl-gt"><span class="toc-number">3.1.10.</span> <span class="toc-text">&lt;dl&gt;</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#lt-address-gt"><span class="toc-number">3.1.11.</span> <span class="toc-text">&lt;address&gt;</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#指定具体内容的标签"><span class="toc-number">3.2.</span> <span class="toc-text">指定具体内容的标签</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#lt-h1-gt-–-lt-h6-gt"><span class="toc-number">3.2.1.</span> <span class="toc-text">&lt;h1&gt;–&lt;h6&gt;</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#lt-a-gt"><span class="toc-number">3.2.2.</span> <span class="toc-text">&lt;a&gt;</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#lt-em-gt-lt-strong-gt"><span class="toc-number">3.2.3.</span> <span class="toc-text">&lt;em&gt;/&lt;strong&gt;</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#lt-i-gt-lt-b-gt"><span class="toc-number">3.2.4.</span> <span class="toc-text">&lt;i&gt;/&lt;b&gt;</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#lt-img-gt"><span class="toc-number">3.2.5.</span> <span class="toc-text">&lt;img&gt;</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#lt-p-gt"><span class="toc-number">3.2.6.</span> <span class="toc-text">&lt;p&gt;</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#属性"><span class="toc-number">4.</span> <span class="toc-text">属性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#title"><span class="toc-number">4.0.1.</span> <span class="toc-text">title</span></a></li></ol></li></ol>
+        
+    </div>
+</aside>
+</header>
+
+        <div id="content" class="content">
+            <div id="wrapper" class="wrapper" style="max-width: 800px">
+                <article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            HTML语义化
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="https://zhanghenggetup.github.io/2020/09/21/HTML语义化/index.html">
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2020-09-21T07:42:54.000Z" itemprop="datePublished">2020-09-21</time>
+</a>
+
+            
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <h1 id="语义化的含义"><a href="#语义化的含义" class="headerlink" title="语义化的含义"></a>语义化的含义</h1><p>语义化，我的理解是根据内容使用有含义的标签或设置有含义的属性。</p>
+<h1 id="语义化的作用"><a href="#语义化的作用" class="headerlink" title="语义化的作用"></a>语义化的作用</h1><ul>
+<li>HTML结构更加清晰，有助于阅读和维护</li>
+<li>方便机器识别内容，有助于SEO</li>
+</ul>
+<a id="more"></a>
+
+<h1 id="语义化标签"><a href="#语义化标签" class="headerlink" title="语义化标签"></a>语义化标签</h1><p>我把语义化标签分为两类，一类是用于构建结构的容器标签，一类是指定具体含义的标签。以下内容摘自MDN。</p>
+<h2 id="构建结构的容器标签"><a href="#构建结构的容器标签" class="headerlink" title="构建结构的容器标签"></a>构建结构的容器标签</h2><h3 id="lt-header-gt"><a href="#lt-header-gt" class="headerlink" title="&lt;header&gt;"></a><code>&lt;header&gt;</code></h3><p>用于展示介绍性内容，通常包含一组介绍性的或是辅助导航的实用元素。它可能包含一些标题元素，但也可能包含其他元素，比如 Logo、搜索框、作者名称，等等。</p>
+<p>使用说明：</p>
+<ul>
+<li><code>&lt;header&gt;</code> 元素不是分段内容，因此不会往 大纲 中引入新的段落。也就是说，<code>&lt;header&gt;</code>元素通常用于包含周围部分的标题（h1 至 h6 元素），但这不是必需的。</li>
+</ul>
+<h3 id="lt-main-gt"><a href="#lt-main-gt" class="headerlink" title="&lt;main&gt;"></a><code>&lt;main&gt;</code></h3><p>呈现应用的主体部分。主体部分由与文档直接相关，或者扩展于文档的中心主题、应用的主要功能部分的内容组成。</p>
+<p>使用说明：</p>
+<ul>
+<li>这部分内容在文档中应当是独一无二的，不包含在任何一系列文档中重复的内容，比如侧边栏，导航栏链接，版权信息，网站 Logo，搜索框（除非搜索框为文档的主要功能）。</li>
+<li><code>&lt;main&gt;</code>对文档的大纲没有贡献;也就是说，与诸如<code>&lt;body&gt;</code>之类的元素，诸如<code>&lt;h2&gt;</code>之类的标题等不同，<code>&lt;main&gt;</code>不会影响DOM’s页面结构概念。这是严格的信息。</li>
+</ul>
+<h3 id="lt-aside-gt"><a href="#lt-aside-gt" class="headerlink" title="&lt;aside&gt;"></a><code>&lt;aside&gt;</code></h3><p>表示一个和其余页面内容几乎无关的部分，被认为是独立于该内容的一部分并且可以被单独的拆分出来而不会使整体受影响。其通常表现为侧边栏或者标注框。</p>
+<p>使用说明：</p>
+<ul>
+<li>不要使用 <code>&lt;aside&gt;</code> 元素去尾随括号内的文本 ，因为这种文本被认为是主要流内容的一部分。</li>
+</ul>
+<h3 id="lt-footer-gt"><a href="#lt-footer-gt" class="headerlink" title="&lt;footer&gt;"></a><code>&lt;footer&gt;</code></h3><p>表示根节点元素的页脚或者最近一个章节内容的页脚。一个页脚通常包含该章节作者、版权数据或者与文档相关的链接等信息。</p>
+<p>使用说明：</p>
+<ul>
+<li><code>&lt;footer&gt;</code>元素内的作者信息应包含在<code>&lt;address&gt;</code> 元素中。</li>
+<li><code>&lt;footer&gt;</code>元素不是章节内容，因此在outline中不能包含新的章节。</li>
+</ul>
+<h3 id="lt-nav-gt"><a href="#lt-nav-gt" class="headerlink" title="&lt;nav&gt;"></a><code>&lt;nav&gt;</code></h3><p>其目的是在当前文档或其他文档中提供导航链接。导航部分的常见示例是菜单，目录和索引。</p>
+<p>使用说明：</p>
+<ul>
+<li>并不是所有的链接都必须使用<code>&lt;nav&gt;</code>元素,它只用来将一些热门的链接放入导航栏,例如<code>&lt;footer&gt;</code>元素就常用来在页面底部包含一个不常用到,没必要加入<code>&lt;nav&gt;</code>的链接列表。</li>
+<li>一个网页也可能含有多个<code>&lt;nav&gt;</code>元素,例如一个是网站内的导航列表,另一个是本页面内的导航列表。</li>
+<li>对于屏幕阅读障碍的人,可以使用这个元素来确定是否忽略初始内容。</li>
+</ul>
+<h3 id="lt-article-gt"><a href="#lt-article-gt" class="headerlink" title="&lt;article&gt;"></a><code>&lt;article&gt;</code></h3><p>表示文档、页面、应用或网站中的独立结构，其意在成为可独立分配的或可复用的结构，如在发布中，它可能是论坛帖子、杂志或新闻文章、博客、用户提交的评论、交互式组件，或者其他独立的内容项目。</p>
+<p>使用说明：</p>
+<ul>
+<li>每个<code>&lt;article&gt;</code>，通常包括标题（<code>&lt;h1&gt;</code> - <code>&lt;h6&gt;</code>元素）作为<code>&lt;article&gt;</code>元素的子元素。</li>
+<li>当<code>&lt;article&gt;</code>元素嵌套使用时，则该元素代表与外层元素有关的文章。例如，代表博客评论的<code>&lt;article&gt;</code>元素可嵌套在代表博客文章的<code>&lt;article&gt;</code>元素中。</li>
+<li><code>&lt;article&gt;</code>元素的作者信息可通过<code>&lt;address&gt;</code>元素提供，但是不适用于嵌套的<code>&lt;article&gt;</code>元素。</li>
+<li><code>&lt;article&gt;</code>元素的发布日期和时间可通过<code>&lt;time&gt;</code>元素的pubdate属性表示。</li>
+<li>可以使用<code>&lt;time&gt;</code> 元素的datetime属性来描述元素的发布日期和时间。请注意<code>&lt;time&gt;</code>的pubdate 属性不再是W3C HTML5标准。</li>
+</ul>
+<h3 id="lt-section-gt"><a href="#lt-section-gt" class="headerlink" title="&lt;section&gt;"></a><code>&lt;section&gt;</code></h3><p>表示一个包含在HTML文档中的独立部分，它没有更具体的语义元素来表示，一般来说会有包含一个标题。</p>
+<p>使用说明：</p>
+<ul>
+<li>一般通过是否包含一个标题作为子节点 来 辨识每一个<code>&lt;section&gt;</code>。</li>
+<li>如果元素内容可以分为几个部分的话，应该使用 <code>&lt;article&gt;</code> 而不是<code>&lt;section&gt;</code>。</li>
+<li>不要把 <code>&lt;section&gt;</code> 元素作为一个普通的容器来使用，这是本应该是<code>&lt;div&gt;</code>的用法（特别是当片段仅仅是为了美化样式的时候）。 一般来说，一个<code>&lt;section&gt;</code>应该出现在文档大纲中。</li>
+</ul>
+<h3 id="lt-details-gt"><a href="#lt-details-gt" class="headerlink" title="&lt;details&gt;"></a><code>&lt;details&gt;</code></h3><p>可创建一个挂件，仅在被切换成展开状态时，它才会显示内含的信息。<code>&lt;summary&gt;</code> 用作 <code>&lt;details&gt;</code>元素的一个内容的摘要，标题或图例。</p>
+<h3 id="lt-ol-gt-lt-ul-gt"><a href="#lt-ol-gt-lt-ul-gt" class="headerlink" title="&lt;ol&gt;/&lt;ul&gt;"></a><code>&lt;ol&gt;</code>/<code>&lt;ul&gt;</code></h3><p>ol和ul这两个标签表示的是列表，区别是是否有顺序要求。其子元素<code>&lt;li&gt;</code>表示的是列表项，li的属性<code>value</code>的值表示列表项的序号。</p>
+<h3 id="lt-dl-gt"><a href="#lt-dl-gt" class="headerlink" title="&lt;dl&gt;"></a><code>&lt;dl&gt;</code></h3><p>是一个包含术语定义以及描述的列表，通常用于展示词汇表或者元数据 (键-值对列表)。</p>
+<ul>
+<li><code>&lt;dt&gt;</code> 用于在一个定义列表中声明一个术语。</li>
+<li><code>&lt;dd&gt;</code> 用来指明一个描述列表中一个术语的描述。</li>
+</ul>
+<h3 id="lt-address-gt"><a href="#lt-address-gt" class="headerlink" title="&lt;address&gt;"></a><code>&lt;address&gt;</code></h3><p>表示其中的 HTML 提供了某个人或某个组织（等等）的联系信息。</p>
+<p>用法说明节</p>
+<ul>
+<li>当表示一个和联系信息无关的任意的地址时，请改用 <code>&lt;p&gt;</code>元素而不是<code>&lt;address&gt;</code> 元素。</li>
+<li>这个元素不能包含除联系信息之外的任何信息，比如出版日期（这应当被包含在<code>&lt;time&gt;</code> 元素之中）。</li>
+<li>通常，<code>&lt;address&gt;</code> 元素可以放在<code>&lt;footer&gt;</code> 元素之中（如果存在的话）。</li>
+</ul>
+<h2 id="指定具体内容的标签"><a href="#指定具体内容的标签" class="headerlink" title="指定具体内容的标签"></a>指定具体内容的标签</h2><h3 id="lt-h1-gt-–-lt-h6-gt"><a href="#lt-h1-gt-–-lt-h6-gt" class="headerlink" title="&lt;h1&gt;–&lt;h6&gt;"></a><code>&lt;h1&gt;</code>–<code>&lt;h6&gt;</code></h3><p>标题(Heading)元素呈现了六个不同的级别的标题，<code>&lt;h1&gt;</code> 级别最高，而 <code>&lt;h6&gt;</code> 级别最低。</p>
+<p>使用说明：</p>
+<ul>
+<li>用户代理可以使用标题信息，例如自动构建文档的目录。</li>
+<li>不要为了减小标题的字体而使用低级别的标题， 而是使用 CSS font-size 属性。</li>
+<li>避免跳过某级标题：始终要从<code>&lt;h1&gt;</code> 开始，接下来依次使用 <code>&lt;h2&gt;</code> 等等。</li>
+<li>使用 <code>&lt;section&gt;</code>元素时，为了方便起见，你应该考虑避免在同一个页面上重复使用 <code>&lt;h1&gt;</code>，<code>&lt;h1&gt;</code> 应被用于表示页面的标题，其他的标题当从 <code>&lt;h2&gt;</code> 开始。在使用 section 时，应当为每个 section 都使用一个 <code>&lt;h2&gt;</code>。</li>
+</ul>
+<h3 id="lt-a-gt"><a href="#lt-a-gt" class="headerlink" title="&lt;a&gt;"></a><code>&lt;a&gt;</code></h3><p>锚元素可以创建通向其他网页、文件、同一页面内的位置、电子邮件地址或任何其他 URL 的超链接。属性<code>rel</code>可以设置<code>prev</code>/<code>next</code>来标识“上一篇”/“下一篇”，设置<code>nofollow</code>标识不推荐超链接指向的文档。</p>
+<h3 id="lt-em-gt-lt-strong-gt"><a href="#lt-em-gt-lt-strong-gt" class="headerlink" title="&lt;em&gt;/&lt;strong&gt;"></a><code>&lt;em&gt;</code>/<code>&lt;strong&gt;</code></h3><p>这两个标签都有强调的作用，不过这两个在表现形式上有所不同，em是斜体，strong是加粗。</p>
+<h3 id="lt-i-gt-lt-b-gt"><a href="#lt-i-gt-lt-b-gt" class="headerlink" title="&lt;i&gt;/&lt;b&gt;"></a><code>&lt;i&gt;</code>/<code>&lt;b&gt;</code></h3><p>i是斜体，b是加粗，这两个与<code>&lt;em&gt;</code>/<code>&lt;strong&gt;</code>的不同是<code>&lt;i&gt;</code>/<code>&lt;b&gt;</code>没有强调/侧重的作用，而是为了引起注意或排版需要。</p>
+<h3 id="lt-img-gt"><a href="#lt-img-gt" class="headerlink" title="&lt;img&gt;"></a><code>&lt;img&gt;</code></h3><p>src, alt 属性决定了图片的含义</p>
+<ul>
+<li>有 src 且 alt 为空字符串，代表装饰用图</li>
+<li>有 src 且 alt 为非空字符串，图为文档内容的一部分</li>
+<li>有 src 且无 alt，图为内容一部分但无等价的文本内容可用</li>
+</ul>
+<h3 id="lt-p-gt"><a href="#lt-p-gt" class="headerlink" title="&lt;p&gt;"></a><code>&lt;p&gt;</code></h3><p>表示文本的一个段落。该元素通常表现为一整块与相邻文本分离的文本，或以垂直的空白隔离或以首行缩进。</p>
+<h1 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h1><h3 id="title"><a href="#title" class="headerlink" title="title"></a>title</h3><p>包含了表示咨询信息文本，和它属于的元素相关。这个信息通常存在，但绝不必要，作为提示信息展示给用户。一些典型用例：</p>
+<ul>
+<li>链接：被链接文档的标题或描述</li>
+<li>媒体元素，例如图像：描述或关联信息</li>
+<li>段落：脚注或者相关的评论</li>
+<li>引用：作者信息，以及其他</li>
+</ul>
+
+        
+    </section>
+</article>
+
+
+
+<a id="pagenext" href="/2020/07/06/MyCopy/" class="article-next" title="MyCopy"><i class="icon-arrow-right"></i></a>
+
+
+<a id="pageprev" href="/2020/09/21/关于SEO/" class="article-prev" title="关于SEO"><i class="icon-arrow-left"></i></a>
+
+
+
+
+            </div>
+        </div>
+        <footer class="footer">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme by <a href="https://github.com/sanonz/hexo-theme-concise" target="_blank">Concise</a>
+
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?e4027971a230b210f4671f485b33846a";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+    
+</footer>
+
+    </main>
+
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        var nodes = {
+            nav: $('#nav'),
+            aside: $('#aside'),
+            asideInner: $('#aside-inner'),
+            navInner: $('#nav-inner')
+        };
+
+        var doing = false;
+        nodes.asideInner.on('webkitAnimationEnd mozAnimationEnd oAnimationEnd oanimationend animationend', function() {
+            if (nodes.aside.hasClass('mobile-open')) {
+                nodes.aside.removeClass('mobile-open');
+            } else {
+                nodes.aside.removeClass('mobile-close panel-show');
+            }
+            doing = false;
+        });
+        $('#open-panel, #aside-mask').on('click', function() {
+            if (doing) {
+                return;
+            }
+
+            if (nodes.aside.hasClass('panel-show')) {
+                nodes.aside.addClass('mobile-close');
+            } else {
+                nodes.aside.addClass('mobile-open panel-show');
+            }
+        });
+        $('#open-menus').on('click', function() {
+            nodes.navInner.slideToggle();
+        });
+
+        if (window.innerWidth <= 960) {
+            setTimeout(function() {
+                nodes.navInner.slideUp();
+            }, 3000);
+        }
+    });
+    </script>
+    
+        <script src="/js/scrollspy.min.js"></script>
+        <script type="text/javascript">
+        $(document.body).scrollspy({target: '#aside-inner'});
+
+        $(window).on('resize', function() {
+            var hw = $('#header').width();
+            var ww = $('#wrapper').width();
+            var space = ($(this).width() - hw - ww) / 2 / 2;
+
+            var pageprev = $('#pageprev');
+            var pagenext = $('#pagenext');
+            var avg = (pageprev.width() + pagenext.width()) / 2
+
+            if(space > avg) {
+                var len = space - avg / 2;
+                var styles = {position: 'fixed', top: '50%', marginTop: - (pageprev.width() + pagenext.width()) / 4}
+                pageprev.css($.extend({left: hw + len}, styles));
+                pagenext.css($.extend({right: len}, styles));
+            } else {
+                pageprev.removeAttr('style');
+                pagenext.removeAttr('style');
+            }
+        }).trigger('resize');
+        </script>
+    
+
+</body>
+</html>
