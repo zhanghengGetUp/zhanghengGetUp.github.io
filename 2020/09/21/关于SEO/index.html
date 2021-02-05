@@ -1,135 +1,188 @@
+
+
 <!DOCTYPE html>
-<html lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-    <meta charset="UTF-8">
+<html lang="en" color-mode=light>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>关于SEO - 张恒的Blog</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+  
+  <meta name="description" content="众所周知，Vue SPA单页面应用对SEO不友好，当然...">
+  <meta name="author" content="ZhangHeng">
+  <link rel="icon" href="/images/icons/favicon-16x16.png" type="image/png" sizes="16x16">
+  <link rel="icon" href="/images/icons/favicon-32x32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/images/icons/apple-touch-icon.png" sizes="180x180">
+  <meta rel="mask-icon" href="/images/icons/stun-logo.svg" color="#333333">
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/favicon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
 
-    
+  
+<link rel="stylesheet" href="/css/style.css">
 
-    
 
-    <title>关于SEO | 张恒的Blog</title>
-    <meta name="author" content="ZhangHeng">
-    <meta name="keywords" content>
-    <meta name="description" content="众所周知，Vue SPA单页面应用对SEO不友好，当然也有相应的解决方案。下面列出几种最近在网上找到的几种方案。SSR服务器渲染静态化预渲染 prerender-spa-plugin + vue-meta-info搜索引擎工作原理爬虫抓取网页内容一般爬虫抓取页面内容是从一个页面出发，从中提取其他页面的链接，然后当作下一个请求的对象，一直重复这个过程。所以要有良好的seo，需要你在各大网站上拥有外链，这样子会提高你的网站被搜索引擎爬虫的几率。分析网页内容爬虫拿到HTML...">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+  
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1445822_s6x2xcokxrl.css">
 
-    
-    
-    <link rel="icon" href="/images/favicon.ico">
-    
+  
 
-    <style type="text/css">
-    @font-face {
-        font-family: 'icomoon';
-        src: url("/fonts/icomoon.eot?q628ml");
-        src: url("/fonts/icomoon.eot?q628ml#iefix") format('embedded-opentype'),
-             url("/fonts/icomoon.ttf?q628ml") format('truetype'),
-             url("/fonts/icomoon.woff?q628ml") format('woff'),
-             url("/fonts/icomoon.svg?q628ml#icomoon") format('svg');
-        font-weight: normal;
-        font-style: normal;
+  
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+    
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+
+      
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      lazyload: {
+        enable: true,
+        only_post: 'false',
+        loading: '/images/theme/loading.gif'
+      },
+      donate: {
+        enable: false,
+        alipay: 'https://pic.izhaoo.com/alipay.jpg',
+        wechat: 'https://pic.izhaoo.com/wechat.jpg'
+      },
+      galleries: {
+        enable: false
+      },
+      fab: {
+        enable: true,
+        always_show: false
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: false
+      },
+      preview: {
+        background: {
+          default: '/images/theme/welcome-image.jpg',
+          api: ''
+        },
+        motto: {
+          default: '我在开了灯的床头下，想问问自己的心啊。',
+          api: 'https://v2.jinrishici.com/one.json',
+          data_contents: '["data","content"]'
+        },
+      },
+      qrcode: {
+        enable: true,
+        type: 'url',
+        image: 'https://pic.izhaoo.com/weapp-code.jpg',
+      },
+      toc: {
+        enable: true
+      },
+      scrollbar: {
+        type: 'simple'
+      },
+      notification: {
+        enable: false,
+        delay: 4500,
+        list: '',
+        page_white_list: '',
+        page_black_list: ''
+      }
     }
-    </style>
-    <link rel="stylesheet" href="/css/style.css">
+  </script>
 
-    <!--[if lt IE 9]>
-    <style type="text/css">
-    .nav-inner {top:0;}
-    .author-meta {position:static;top:0;}
-    .search-form {height:36px;}
-    </style>
-    <script type="text/javascript" src="https://unpkg.com/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-    <![endif]-->
-</head>
-<body>
+  
 
-    <main class="app">
-        <header id="header" class="header clearfix">
-    <div id="nav" class="nav">
-    <div class="nav-mobile">
-        <button id="open-panel" class="open-panel nav-mobile-item"><i class="icon-documents"></i></button>
-        <h1 class="nav-mobile-title nav-mobile-item">张恒的Blog</h1>
-        <button id="open-menus" class="open-panel nav-mobile-item"><i class="icon-library"></i></button>
+  
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body class="lock-screen">
+  <div class="loading"></div>
+  
+
+
+  <nav class="navbar">
+    <div class="left">
+      
+        <i class="iconfont iconqrcode j-navbar-qrcode"></i>
+      
+      
+        <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+      
     </div>
-
-    <nav id="nav-inner" class="nav-inner">
-        
-            <a class="nav-item" href="/">
-                <span class="nav-text">首页</span>
-            </a>
-        
-            <a class="nav-item" href="/tags">
-                <span class="nav-text">标签</span>
-            </a>
-        
-            <a class="nav-item" href="/archives">
-                <span class="nav-text">归档</span>
-            </a>
-        
-            <a class="nav-item" href="/about">
-                <span class="nav-text">关于</span>
-            </a>
-        
-    </nav>
-</div>
-
-    <aside id="aside" class="aside">
-    <div id="aside-mask" class="aside-mask"></div>
-    <div id="aside-inner" class="aside-inner">
-        <!-- <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="https://zhanghenggetup.github.io"></form> -->
-
-        
-        
-        
-        
-
-        
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#搜索引擎工作原理"><span class="toc-number">1.</span> <span class="toc-text">搜索引擎工作原理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#爬虫抓取网页内容"><span class="toc-number">1.1.</span> <span class="toc-text">爬虫抓取网页内容</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#分析网页内容"><span class="toc-number">1.2.</span> <span class="toc-text">分析网页内容</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#搜索和排序"><span class="toc-number">1.3.</span> <span class="toc-text">搜索和排序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#那么为什么前后端分离不利于SEO呢？"><span class="toc-number">1.4.</span> <span class="toc-text">那么为什么前后端分离不利于SEO呢？</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#前端编码的SEO"><span class="toc-number">2.</span> <span class="toc-text">前端编码的SEO</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#网站结构"><span class="toc-number">2.1.</span> <span class="toc-text">网站结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#导航"><span class="toc-number">2.2.</span> <span class="toc-text">导航</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#规范的URL"><span class="toc-number">2.3.</span> <span class="toc-text">规范的URL</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#提交Sitemap"><span class="toc-number">2.4.</span> <span class="toc-text">提交Sitemap</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#robot-txt"><span class="toc-number">2.5.</span> <span class="toc-text">robot.txt</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#合理的HTTP返回码"><span class="toc-number">2.6.</span> <span class="toc-text">合理的HTTP返回码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#合适的title"><span class="toc-number">2.7.</span> <span class="toc-text">合适的title</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#合适的description"><span class="toc-number">2.8.</span> <span class="toc-text">合适的description</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#HTML语义化"><span class="toc-number">2.9.</span> <span class="toc-text">HTML语义化</span></a></li></ol></li></ol>
-        
+    <div class="center">关于SEO</div>
+    <div class="right">
+      <i class="iconfont iconmenu j-navbar-menu"></i>
     </div>
-</aside>
-</header>
-
-        <div id="content" class="content">
-            <div id="wrapper" class="wrapper" style="max-width: 800px">
-                <article class="article" itemscope itemprop="blogPost">
     
-    <header class="article-header">
-        
-        <h1 itemprop="name">
-            关于SEO
-        </h1>
-        
-        <div class="article-meta clearfix">
-            <a class="article-date" href="https://zhanghenggetup.github.io/2020/09/21/关于SEO/index.html">
+      <div id="qrcode-navbar"></div>
     
-    <i class="icon-calendar"></i>
+  </nav>
+
+  
+
+<nav class="menu">
+  <div class="menu-wrap">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content"><li class="menu-item">
+        <a href="/ " class="underline "> 首页</a>
+      </li><li class="menu-item">
+        <a href="/archives/ " class="underline "> 归档</a>
+      </li><li class="menu-item">
+        <a href="/about/ " class="underline "> 关于</a>
+      </li></ul>
     
-    <time datetime="2020-09-21T08:22:15.000Z" itemprop="datePublished">2020-09-21</time>
-</a>
-
-            
-<div class="article-tag-list">
-    <i class="icon-tag"></i>
-    <a class="article-tag-link" href="/tags/SEO/">SEO</a>
-</div>
-
-
-        </div>
-    </header>
+      <div class="menu-copyright"><p>Powered by zhangheng</p></div>
     
-    <section class="article-body markdown-body">
-        
-        <p>众所周知，Vue SPA单页面应用对SEO不友好，当然也有相应的解决方案。下面列出几种最近在网上找到的几种方案。</p>
-<ol>
-<li>SSR服务器渲染</li>
-<li>静态化</li>
-<li>预渲染 prerender-spa-plugin + vue-meta-info</li>
-</ol>
-<a id="more"></a>
-
-<h3 id="搜索引擎工作原理"><a href="#搜索引擎工作原理" class="headerlink" title="搜索引擎工作原理"></a>搜索引擎工作原理</h3><ol>
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-2"></div>
+      <div class="col-xl-8"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img   class="lazyload" data-original="/images/theme/post-image.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">关于SEO</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>September 21, 2020</span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>2151</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        <h3 id="搜索引擎工作原理"><a href="#搜索引擎工作原理" class="headerlink" title="搜索引擎工作原理"></a>搜索引擎工作原理</h3><ol>
 <li><h4 id="爬虫抓取网页内容"><a href="#爬虫抓取网页内容" class="headerlink" title="爬虫抓取网页内容"></a>爬虫抓取网页内容</h4><p>一般爬虫抓取页面内容是从一个页面出发，从中提取其他页面的链接，然后当作下一个请求的对象，一直重复这个过程。所以要有良好的seo，需要你在各大网站上拥有外链，这样子会提高你的网站被搜索引擎爬虫的几率。</p>
 </li>
 <li><h4 id="分析网页内容"><a href="#分析网页内容" class="headerlink" title="分析网页内容"></a>分析网页内容</h4><p>爬虫拿到HTML之后，就会对其内容进行分析。一般要去杂、分词、建立索引数据库等。什么是索引数据库呢？简单的说就是记录一个词在哪些文档中出现、出现次数、出现的位置等等。建立索引数据库可以方便快速查找</p>
@@ -154,7 +207,7 @@
 <h4 id="规范的URL"><a href="#规范的URL" class="headerlink" title="规范的URL"></a>规范的URL</h4><p>规范、简单、易理解的URL能让搜索引擎更好的抓取内容。建议：</p>
 <ul>
 <li>同一个页面，只对应一个url。多个url可以采用301进行重定向。</li>
-<li>url可以反应网站内容及网站结构信息。例如<a href="http://www.a.com/blog、www.a.com/blog/123、www.a.com/article。" target="_blank" rel="noopener">www.a.com/blog、www.a.com/blog/123、www.a.com/article。</a></li>
+<li>url可以反应网站内容及网站结构信息。例如<a target="_blank" rel="noopener" href="http://www.a.com/blog%E3%80%81www.a.com/blog/123%E3%80%81www.a.com/article%E3%80%82">www.a.com/blog、www.a.com/blog/123、www.a.com/article。</a></li>
 <li>url尽量简短。</li>
 <li>尽量减少动态url中包含的变量参数。</li>
 </ul>
@@ -188,112 +241,164 @@
 <h4 id="HTML语义化"><a href="#HTML语义化" class="headerlink" title="HTML语义化"></a>HTML语义化</h4><p>HTML语义化是用标签和属性来描述内容。所以<strong>HTML语义化是SEO的基石</strong>。一般建议：</p>
 <ul>
 <li>HTML结构要清晰和简洁</li>
-<li>跳转使用<a>标签，不要使用js跳转</a></li>
+<li>跳转使用<a>标签，不要使用js跳转</li>
 <li>图片加alt说明</li>
-<li>文章用<article>标签承载</article></li>
+<li>文章用<article>标签承载</li>
 </ul>
+      </section>
+      <section class="extra">
+        
+          <ul class="copyright">
+  
+    <li><strong>本文作者：</strong>ZhangHeng</li>
+    <li><strong>本文链接：</strong><a href="https://zhanghenggetup.github.io/2020/09/21/%E5%85%B3%E4%BA%8ESEO/index.html" title="https:&#x2F;&#x2F;zhanghenggetup.github.io&#x2F;2020&#x2F;09&#x2F;21&#x2F;%E5%85%B3%E4%BA%8ESEO&#x2F;index.html">https:&#x2F;&#x2F;zhanghenggetup.github.io&#x2F;2020&#x2F;09&#x2F;21&#x2F;%E5%85%B3%E4%BA%8ESEO&#x2F;index.html</a></li>
+    <li><strong>版权声明：</strong>本博客所有文章均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" title="BY-NC-SA" target="_blank" rel="noopener">BY-NC-SA</a> 许可协议，转载请注明出处！</li>
+  
+</ul>
+        
+        
+        
+  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/SEO/" rel="tag">SEO</a></li></ul> 
 
         
+  <nav class="nav">
+    <a href="/2020/12/17/Vue-TypeScript%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/"><i class="iconfont iconleft"></i>Vue+TypeScript使用记录</a>
+    <a href="/2020/09/21/HTML%E8%AF%AD%E4%B9%89%E5%8C%96/">HTML语义化<i class="iconfont iconright"></i></a>
+  </nav>
+
+      </section>
+      
     </section>
-</article>
+  </div>
+</article></div>
+      <div class="col-xl-2">
+        
+          
+  <aside class="toc-wrap">
+    <h3 class="toc-title">文章目录：</h3>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="toc-text">搜索引擎工作原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%89%8D%E7%AB%AF%E7%BC%96%E7%A0%81%E7%9A%84SEO"><span class="toc-text">前端编码的SEO</span></a></li></ol>
+  </aside>
 
+        
+      </div>
+    </div>
+  </div>
+</main>
+  
 
-
-<a id="pagenext" href="/2020/09/21/HTML语义化/" class="article-next" title="HTML语义化"><i class="icon-arrow-right"></i></a>
-
-
-<a id="pageprev" href="/2020/12/17/Vue-TypeScript使用记录/" class="article-prev" title="Vue+TypeScript使用记录"><i class="icon-arrow-left"></i></a>
-
-
-
-
-            </div>
-        </div>
-        <footer class="footer">
-    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme by <a href="https://github.com/sanonz/hexo-theme-concise" target="_blank">Concise</a>
-
-    
-    <script>
-        var _hmt = _hmt || [];
-        (function () {
-            var hm = document.createElement("script");
-            hm.src = "https://hm.baidu.com/hm.js?e4027971a230b210f4671f485b33846a";
-            var s = document.getElementsByTagName("script")[0];
-            s.parentNode.insertBefore(hm, s);
-        })();
-    </script>
-    
+<footer class="footer">
+  <div class="footer-social"><a 
+        href="tencent://message/?Menu=yes&uin=894519210 "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#12B7F5'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconQQ "></i>
+      </a><a 
+        href="javascript:; "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#09BB07'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconwechat-fill "></i>
+      </a><a 
+        href="https://github.com/zhanghenggetup "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#9f7be1'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  icongithub-fill "></i>
+      </a><a 
+        href="mailto:1363123656@qq.com "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color=#FF3B00" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconmail"></i>
+      </a></div>
+  
+    <div class="footer-copyright"><p>Powered by zhangheng</p></div>
+  
 </footer>
-
-    </main>
-
-    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
-    <script type="text/javascript">
-    $(function() {
-        var nodes = {
-            nav: $('#nav'),
-            aside: $('#aside'),
-            asideInner: $('#aside-inner'),
-            navInner: $('#nav-inner')
-        };
-
-        var doing = false;
-        nodes.asideInner.on('webkitAnimationEnd mozAnimationEnd oAnimationEnd oanimationend animationend', function() {
-            if (nodes.aside.hasClass('mobile-open')) {
-                nodes.aside.removeClass('mobile-open');
-            } else {
-                nodes.aside.removeClass('mobile-close panel-show');
-            }
-            doing = false;
-        });
-        $('#open-panel, #aside-mask').on('click', function() {
-            if (doing) {
-                return;
-            }
-
-            if (nodes.aside.hasClass('panel-show')) {
-                nodes.aside.addClass('mobile-close');
-            } else {
-                nodes.aside.addClass('mobile-open panel-show');
-            }
-        });
-        $('#open-menus').on('click', function() {
-            nodes.navInner.slideToggle();
-        });
-
-        if (window.innerWidth <= 960) {
-            setTimeout(function() {
-                nodes.navInner.slideUp();
-            }, 3000);
-        }
-    });
-    </script>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+    <div class="scrollbar j-scrollbar">
+  <div class="scrollbar-current j-scrollbar-current"></div>
+</div>
+  
+  
     
-        <script src="/js/scrollspy.min.js"></script>
-        <script type="text/javascript">
-        $(document.body).scrollspy({target: '#aside-inner'});
+<script src="/js/color-mode.js"></script>
 
-        $(window).on('resize', function() {
-            var hw = $('#header').width();
-            var ww = $('#wrapper').width();
-            var space = ($(this).width() - hw - ww) / 2 / 2;
-
-            var pageprev = $('#pageprev');
-            var pagenext = $('#pagenext');
-            var avg = (pageprev.width() + pagenext.width()) / 2
-
-            if(space > avg) {
-                var len = space - avg / 2;
-                var styles = {position: 'fixed', top: '50%', marginTop: - (pageprev.width() + pagenext.width()) / 4}
-                pageprev.css($.extend({left: hw + len}, styles));
-                pagenext.css($.extend({right: len}, styles));
-            } else {
-                pageprev.removeAttr('style');
-                pagenext.removeAttr('style');
-            }
-        }).trigger('resize');
-        </script>
-    
-
+  
 </body>
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
 </html>

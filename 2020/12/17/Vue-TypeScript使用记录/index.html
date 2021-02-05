@@ -1,265 +1,365 @@
+
+
 <!DOCTYPE html>
-<html lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-    <meta charset="UTF-8">
+<html lang="en" color-mode=light>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Vue+TypeScript使用记录 - 张恒的Blog</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+  
+  <meta name="description" content="最近参与开发了一个新项目，想着新项目就用用自己不熟悉的...">
+  <meta name="author" content="ZhangHeng">
+  <link rel="icon" href="/images/icons/favicon-16x16.png" type="image/png" sizes="16x16">
+  <link rel="icon" href="/images/icons/favicon-32x32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/images/icons/apple-touch-icon.png" sizes="180x180">
+  <meta rel="mask-icon" href="/images/icons/stun-logo.svg" color="#333333">
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/favicon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
 
-    
+  
+<link rel="stylesheet" href="/css/style.css">
 
-    
 
-    <title>Vue+TypeScript使用记录 | 张恒的Blog</title>
-    <meta name="author" content="ZhangHeng">
-    <meta name="keywords" content>
-    <meta name="description" content="最近参与开发了一个新项目，想着新项目就用用自己不熟悉的技术，一边学习一边进步，于是把目光瞄向了TypeScript，话不多说，直接开干。一、创建项目项目搭建选择的是VueCli搭建的，写的时候试了一下发现Element-ui对vue3还没做支持，于是用的vue2+vue-property-decorator扩展（cli创建项目的时候自动引入了）配合TypeScript写的，css样式用scss写的。二、项目结构1、挂载全局方法封装Vue的原因是我想把api接口挂载到原型链上1Vu...">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+  
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1445822_s6x2xcokxrl.css">
 
-    
-    
-    <link rel="icon" href="/images/favicon.ico">
-    
+  
 
-    <style type="text/css">
-    @font-face {
-        font-family: 'icomoon';
-        src: url("/fonts/icomoon.eot?q628ml");
-        src: url("/fonts/icomoon.eot?q628ml#iefix") format('embedded-opentype'),
-             url("/fonts/icomoon.ttf?q628ml") format('truetype'),
-             url("/fonts/icomoon.woff?q628ml") format('woff'),
-             url("/fonts/icomoon.svg?q628ml#icomoon") format('svg');
-        font-weight: normal;
-        font-style: normal;
+  
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+    
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+
+      
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      lazyload: {
+        enable: true,
+        only_post: 'false',
+        loading: '/images/theme/loading.gif'
+      },
+      donate: {
+        enable: false,
+        alipay: 'https://pic.izhaoo.com/alipay.jpg',
+        wechat: 'https://pic.izhaoo.com/wechat.jpg'
+      },
+      galleries: {
+        enable: false
+      },
+      fab: {
+        enable: true,
+        always_show: false
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: false
+      },
+      preview: {
+        background: {
+          default: '/images/theme/welcome-image.jpg',
+          api: ''
+        },
+        motto: {
+          default: '我在开了灯的床头下，想问问自己的心啊。',
+          api: 'https://v2.jinrishici.com/one.json',
+          data_contents: '["data","content"]'
+        },
+      },
+      qrcode: {
+        enable: true,
+        type: 'url',
+        image: 'https://pic.izhaoo.com/weapp-code.jpg',
+      },
+      toc: {
+        enable: true
+      },
+      scrollbar: {
+        type: 'simple'
+      },
+      notification: {
+        enable: false,
+        delay: 4500,
+        list: '',
+        page_white_list: '',
+        page_black_list: ''
+      }
     }
-    </style>
-    <link rel="stylesheet" href="/css/style.css">
+  </script>
 
-    <!--[if lt IE 9]>
-    <style type="text/css">
-    .nav-inner {top:0;}
-    .author-meta {position:static;top:0;}
-    .search-form {height:36px;}
-    </style>
-    <script type="text/javascript" src="https://unpkg.com/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-    <![endif]-->
-</head>
-<body>
+  
 
-    <main class="app">
-        <header id="header" class="header clearfix">
-    <div id="nav" class="nav">
-    <div class="nav-mobile">
-        <button id="open-panel" class="open-panel nav-mobile-item"><i class="icon-documents"></i></button>
-        <h1 class="nav-mobile-title nav-mobile-item">张恒的Blog</h1>
-        <button id="open-menus" class="open-panel nav-mobile-item"><i class="icon-library"></i></button>
+  
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body class="lock-screen">
+  <div class="loading"></div>
+  
+
+
+  <nav class="navbar">
+    <div class="left">
+      
+        <i class="iconfont iconqrcode j-navbar-qrcode"></i>
+      
+      
+        <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+      
     </div>
-
-    <nav id="nav-inner" class="nav-inner">
-        
-            <a class="nav-item" href="/">
-                <span class="nav-text">首页</span>
-            </a>
-        
-            <a class="nav-item" href="/tags">
-                <span class="nav-text">标签</span>
-            </a>
-        
-            <a class="nav-item" href="/archives">
-                <span class="nav-text">归档</span>
-            </a>
-        
-            <a class="nav-item" href="/about">
-                <span class="nav-text">关于</span>
-            </a>
-        
-    </nav>
-</div>
-
-    <aside id="aside" class="aside">
-    <div id="aside-mask" class="aside-mask"></div>
-    <div id="aside-inner" class="aside-inner">
-        <!-- <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="https://zhanghenggetup.github.io"></form> -->
-
-        
-        
-        
-        
-
-        
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、创建项目"><span class="toc-number">1.</span> <span class="toc-text">一、创建项目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、项目结构"><span class="toc-number">2.</span> <span class="toc-text">二、项目结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、挂载全局方法"><span class="toc-number">2.1.</span> <span class="toc-text">1、挂载全局方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、Vuex使用"><span class="toc-number">2.2.</span> <span class="toc-text">2、Vuex使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、EsLint配置"><span class="toc-number">2.3.</span> <span class="toc-text">3、EsLint配置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、TS使用到的特性"><span class="toc-number">3.</span> <span class="toc-text">三、TS使用到的特性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、总结"><span class="toc-number">4.</span> <span class="toc-text">四、总结</span></a></li></ol>
-        
+    <div class="center">Vue+TypeScript使用记录</div>
+    <div class="right">
+      <i class="iconfont iconmenu j-navbar-menu"></i>
     </div>
-</aside>
-</header>
-
-        <div id="content" class="content">
-            <div id="wrapper" class="wrapper" style="max-width: 800px">
-                <article class="article" itemscope itemprop="blogPost">
     
-    <header class="article-header">
-        
-        <h1 itemprop="name">
-            Vue+TypeScript使用记录
-        </h1>
-        
-        <div class="article-meta clearfix">
-            <a class="article-date" href="https://zhanghenggetup.github.io/2020/12/17/Vue-TypeScript使用记录/index.html">
+      <div id="qrcode-navbar"></div>
     
-    <i class="icon-calendar"></i>
+  </nav>
+
+  
+
+<nav class="menu">
+  <div class="menu-wrap">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content"><li class="menu-item">
+        <a href="/ " class="underline "> 首页</a>
+      </li><li class="menu-item">
+        <a href="/archives/ " class="underline "> 归档</a>
+      </li><li class="menu-item">
+        <a href="/about/ " class="underline "> 关于</a>
+      </li></ul>
     
-    <time datetime="2020-12-17T04:43:34.000Z" itemprop="datePublished">2020-12-17</time>
-</a>
-
-            
-<div class="article-tag-list">
-    <i class="icon-tag"></i>
-    <a class="article-tag-link" href="/tags/vue-TypeScript/">vue TypeScript</a>
-</div>
-
-
-        </div>
-    </header>
+      <div class="menu-copyright"><p>Powered by zhangheng</p></div>
     
-    <section class="article-body markdown-body">
-        
-        <p>最近参与开发了一个新项目，想着新项目就用用自己不熟悉的技术，一边学习一边进步，于是把目光瞄向了TypeScript，话不多说，直接开干。</p>
-<a id="more"></a>
-
-<h2 id="一、创建项目"><a href="#一、创建项目" class="headerlink" title="一、创建项目"></a>一、创建项目</h2><p>项目搭建选择的是VueCli搭建的，写的时候试了一下发现Element-ui对vue3还没做支持，于是用的vue2+vue-property-decorator扩展（cli创建项目的时候自动引入了）配合TypeScript写的，css样式用scss写的。</p>
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-2"></div>
+      <div class="col-xl-8"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img   class="lazyload" data-original="/images/theme/post-image.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">Vue+TypeScript使用记录</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>December 17, 2020</span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>7575</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        <h2 id="一、创建项目"><a href="#一、创建项目" class="headerlink" title="一、创建项目"></a>一、创建项目</h2><p>项目搭建选择的是VueCli搭建的，写的时候试了一下发现Element-ui对vue3还没做支持，于是用的vue2+vue-property-decorator扩展（cli创建项目的时候自动引入了）配合TypeScript写的，css样式用scss写的。</p>
 <h2 id="二、项目结构"><a href="#二、项目结构" class="headerlink" title="二、项目结构"></a>二、项目结构</h2><h3 id="1、挂载全局方法"><a href="#1、挂载全局方法" class="headerlink" title="1、挂载全局方法"></a>1、挂载全局方法</h3><p>封装Vue的原因是我想把api接口挂载到原型链上</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Vue.prototype.$XXX = XXX;</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs elm"><span class="hljs-type">Vue</span>.proto<span class="hljs-keyword">type</span>.$<span class="hljs-type">XXX</span> = <span class="hljs-type">XXX</span>;<br></code></pre></td></tr></table></figure>
 <p>这样就不用在每个文件里手动引一次了，但是TS会报下面的错：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Property &apos;$XXX&apos; does not exist on type &apos;XXX&apos;.</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs delphi"><span class="hljs-keyword">Property</span> <span class="hljs-string">&#x27;$XXX&#x27;</span> does <span class="hljs-keyword">not</span> exist <span class="hljs-keyword">on</span> <span class="hljs-keyword">type</span> <span class="hljs-string">&#x27;XXX&#x27;</span>.<br></code></pre></td></tr></table></figure>
 <p>这时候不管这个错误能正常发送请求，能拿到请求的数据，但是打包的时候就GG了，build不成功，因为有代码逻辑有error (￣▽￣)” ，上网查Vue官方的解决方案如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">增强类型以配合插件使用</span><br><span class="line"></span><br><span class="line">插件可以增加 Vue 的全局/实例 property 和组件选项。在这些情况下，在 TypeScript 中制作插件需要类型声明。庆幸的是，TypeScript 有一个特性来补充现有的类型，叫做模块补充 (module augmentation)。</span><br><span class="line"></span><br><span class="line">例如，声明一个 string 类型的实例 property $myProperty：</span><br><span class="line"></span><br><span class="line">// 1. 确保在声明补充的类型之前导入 &apos;vue&apos;</span><br><span class="line">import Vue from &apos;vue&apos;</span><br><span class="line"></span><br><span class="line">// 2. 定制一个文件，设置你想要补充的类型</span><br><span class="line">//    在 types/vue.d.ts 里 Vue 有构造函数类型</span><br><span class="line">declare module &apos;vue/types/vue&apos; &#123;</span><br><span class="line">// 3. 声明为 Vue 补充的东西</span><br><span class="line">  interface Vue &#123;</span><br><span class="line">    $myProperty: string</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">在你的项目中包含了上述作为声明文件的代码之后 (像 my-property.d.ts)，你就可以在 Vue 实例上使用 $myProperty 了。</span><br><span class="line"></span><br><span class="line">var vm = new Vue()</span><br><span class="line">console.log(vm.$myProperty) // 将会顺利编译通过</span><br><span class="line">你也可以声明额外的 property 和组件选项：</span><br><span class="line"></span><br><span class="line">import Vue from &apos;vue&apos;</span><br><span class="line"></span><br><span class="line">declare module &apos;vue/types/vue&apos; &#123;</span><br><span class="line">  // 可以使用 `VueConstructor` 接口</span><br><span class="line">  // 来声明全局 property</span><br><span class="line">  interface VueConstructor &#123;</span><br><span class="line">    $myGlobal: string</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// ComponentOptions 声明于 types/options.d.ts 之中</span><br><span class="line">declare module &apos;vue/types/options&apos; &#123;</span><br><span class="line">  interface ComponentOptions&lt;V extends Vue&gt; &#123;</span><br><span class="line">    myOption?: string</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">上述的声明允许下面的代码顺利编译通过：</span><br><span class="line"></span><br><span class="line">// 全局 property</span><br><span class="line">console.log(Vue.$myGlobal)</span><br><span class="line"></span><br><span class="line">// 额外的组件选项</span><br><span class="line">var vm = new Vue(&#123;</span><br><span class="line">  myOption: &apos;Hello&apos;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><code class="hljs typescript">增强类型以配合插件使用<br><br>插件可以增加 Vue 的全局/实例 property 和组件选项。在这些情况下，在 TypeScript 中制作插件需要类型声明。庆幸的是，TypeScript 有一个特性来补充现有的类型，叫做模块补充 (<span class="hljs-built_in">module</span> augmentation)。<br><br>例如，声明一个 <span class="hljs-built_in">string</span> 类型的实例 property $myProperty：<br><br><span class="hljs-comment">// 1. 确保在声明补充的类型之前导入 &#x27;vue&#x27;</span><br><span class="hljs-keyword">import</span> Vue <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vue&#x27;</span><br><br><span class="hljs-comment">// 2. 定制一个文件，设置你想要补充的类型</span><br><span class="hljs-comment">//    在 types/vue.d.ts 里 Vue 有构造函数类型</span><br><span class="hljs-keyword">declare</span> <span class="hljs-built_in">module</span> <span class="hljs-string">&#x27;vue/types/vue&#x27;</span> &#123;<br><span class="hljs-comment">// 3. 声明为 Vue 补充的东西</span><br>  <span class="hljs-keyword">interface</span> Vue &#123;<br>    $myProperty: <span class="hljs-built_in">string</span><br>  &#125;<br>&#125;<br>在你的项目中包含了上述作为声明文件的代码之后 (像 my-property.d.ts)，你就可以在 Vue 实例上使用 $myProperty 了。<br><br><span class="hljs-keyword">var</span> vm = <span class="hljs-keyword">new</span> Vue()<br><span class="hljs-built_in">console</span>.log(vm.$myProperty) <span class="hljs-comment">// 将会顺利编译通过</span><br>你也可以声明额外的 property 和组件选项：<br><br><span class="hljs-keyword">import</span> Vue <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vue&#x27;</span><br><br><span class="hljs-keyword">declare</span> <span class="hljs-built_in">module</span> <span class="hljs-string">&#x27;vue/types/vue&#x27;</span> &#123;<br>  <span class="hljs-comment">// 可以使用 `VueConstructor` 接口</span><br>  <span class="hljs-comment">// 来声明全局 property</span><br>  <span class="hljs-keyword">interface</span> VueConstructor &#123;<br>    $myGlobal: <span class="hljs-built_in">string</span><br>  &#125;<br>&#125;<br><br><span class="hljs-comment">// ComponentOptions 声明于 types/options.d.ts 之中</span><br><span class="hljs-keyword">declare</span> <span class="hljs-built_in">module</span> <span class="hljs-string">&#x27;vue/types/options&#x27;</span> &#123;<br>  <span class="hljs-keyword">interface</span> ComponentOptions&lt;V <span class="hljs-keyword">extends</span> Vue&gt; &#123;<br>    myOption?: <span class="hljs-built_in">string</span><br>  &#125;<br>&#125;<br>上述的声明允许下面的代码顺利编译通过：<br><br><span class="hljs-comment">// 全局 property</span><br><span class="hljs-built_in">console</span>.log(Vue.$myGlobal)<br><br><span class="hljs-comment">// 额外的组件选项</span><br><span class="hljs-keyword">var</span> vm = <span class="hljs-keyword">new</span> Vue(&#123;<br>  myOption: <span class="hljs-string">&#x27;Hello&#x27;</span><br>&#125;)<br></code></pre></td></tr></table></figure>
 <p>这种解决方案应该是最合理的解决方案，在vue-router的组件的vue.d.ts文件中也见到如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Augment the typings of Vue.js</span><br><span class="line"> */</span><br><span class="line"></span><br><span class="line">import Vue from &apos;vue&apos;</span><br><span class="line">import VueRouter, &#123; Route, RawLocation, NavigationGuard &#125; from &apos;./index&apos;</span><br><span class="line"></span><br><span class="line">declare module &apos;vue/types/vue&apos; &#123;</span><br><span class="line">  interface Vue &#123;</span><br><span class="line">    $router: VueRouter</span><br><span class="line">    $route: Route</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">declare module &apos;vue/types/options&apos; &#123;</span><br><span class="line">  interface ComponentOptions&lt;V extends Vue&gt; &#123;</span><br><span class="line">    router?: VueRouter</span><br><span class="line">    beforeRouteEnter?: NavigationGuard&lt;V&gt;</span><br><span class="line">    beforeRouteLeave?: NavigationGuard&lt;V&gt;</span><br><span class="line">    beforeRouteUpdate?: NavigationGuard&lt;V&gt;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Augment the typings of Vue.js</span><br><span class="hljs-comment"> */</span><br><br><span class="hljs-keyword">import</span> Vue <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vue&#x27;</span><br><span class="hljs-keyword">import</span> VueRouter, &#123; Route, RawLocation, NavigationGuard &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./index&#x27;</span><br><br><span class="hljs-keyword">declare</span> <span class="hljs-built_in">module</span> <span class="hljs-string">&#x27;vue/types/vue&#x27;</span> &#123;<br>  <span class="hljs-keyword">interface</span> Vue &#123;<br>    $router: VueRouter<br>    $route: Route<br>  &#125;<br>&#125;<br><br><span class="hljs-keyword">declare</span> <span class="hljs-built_in">module</span> <span class="hljs-string">&#x27;vue/types/options&#x27;</span> &#123;<br>  <span class="hljs-keyword">interface</span> ComponentOptions&lt;V <span class="hljs-keyword">extends</span> Vue&gt; &#123;<br>    router?: VueRouter<br>    beforeRouteEnter?: NavigationGuard&lt;V&gt;<br>    beforeRouteLeave?: NavigationGuard&lt;V&gt;<br>    beforeRouteUpdate?: NavigationGuard&lt;V&gt;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>当时写的时候没有找到这种方案，所以采用了封装vue的方式解决，代码如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Vue &#125; from &apos;vue-property-decorator&apos;</span><br><span class="line">import services from &apos;@/services&apos;</span><br><span class="line"></span><br><span class="line">export default class VueBase extends Vue &#123;</span><br><span class="line">  public services = services</span><br><span class="line"></span><br><span class="line">  private lockStack: Array&lt;number&gt; = [] // 锁栈</span><br><span class="line">  private loading: any</span><br><span class="line">  loadingStart() &#123;</span><br><span class="line">    if (!this.lockStack.length) &#123;</span><br><span class="line">      this.loading = this.$loading(&#123;</span><br><span class="line">        background: &apos;rgba(0,0,0,0)&apos;,</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">    this.lockStack.push(1)</span><br><span class="line">  &#125;</span><br><span class="line">  loadingDone() &#123;</span><br><span class="line">    if (this.lockStack.length &lt;= 1) &#123;</span><br><span class="line">      this.loading.close()</span><br><span class="line">    &#125;</span><br><span class="line">    this.lockStack.pop()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">import</span> &#123; Vue &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vue-property-decorator&#x27;</span><br><span class="hljs-keyword">import</span> services <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@/services&#x27;</span><br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">VueBase</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Vue</span> </span>&#123;<br>  <span class="hljs-keyword">public</span> services = services<br><br>  <span class="hljs-keyword">private</span> lockStack: <span class="hljs-built_in">Array</span>&lt;<span class="hljs-built_in">number</span>&gt; = [] <span class="hljs-comment">// 锁栈</span><br>  <span class="hljs-keyword">private</span> loading: <span class="hljs-built_in">any</span><br>  <span class="hljs-function"><span class="hljs-title">loadingStart</span>(<span class="hljs-params"></span>)</span> &#123;<br>    <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">this</span>.lockStack.length) &#123;<br>      <span class="hljs-built_in">this</span>.loading = <span class="hljs-built_in">this</span>.$loading(&#123;<br>        background: <span class="hljs-string">&#x27;rgba(0,0,0,0)&#x27;</span>,<br>      &#125;)<br>    &#125;<br>    <span class="hljs-built_in">this</span>.lockStack.push(<span class="hljs-number">1</span>)<br>  &#125;<br>  <span class="hljs-function"><span class="hljs-title">loadingDone</span>(<span class="hljs-params"></span>)</span> &#123;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.lockStack.length &lt;= <span class="hljs-number">1</span>) &#123;<br>      <span class="hljs-built_in">this</span>.loading.close()<br>    &#125;<br>    <span class="hljs-built_in">this</span>.lockStack.pop()<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>然后每次新建vue文件的时候就不从<code>vue-property-decorator</code>中引vue了，而是extends自己封装的VueBase类。</p>
 <h3 id="2、Vuex使用"><a href="#2、Vuex使用" class="headerlink" title="2、Vuex使用"></a>2、Vuex使用</h3><p>vuex也是由于打包问题，必须严格按照TS语法写，上网查资料看到好多vuex封装的组件，例如<code>vuex-class</code>，但是在写的时候看vuex的源码发现vuex已经对ts做了兼容。再加上新项目的业务线比较简单，于是没用其他组件，最终实现如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">// user.ts</span><br><span class="line">import &#123; Commit &#125; from &apos;vuex&apos;</span><br><span class="line">import createUserServices from &apos;@/services/user&apos;</span><br><span class="line">import &#123; Message &#125; from &apos;element-ui&apos;</span><br><span class="line"></span><br><span class="line">const userServices = createUserServices()</span><br><span class="line"></span><br><span class="line">const state: any = &#123;</span><br><span class="line">  userInfo: null,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const mutations: any = &#123;</span><br><span class="line">  UPDATE_USER_INFO(state: any, userInfo: any) &#123;</span><br><span class="line">    state.userInfo = userInfo</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const actions: any = &#123;</span><br><span class="line">  async getUserInfo(context: &#123; commit: Commit &#125;) &#123;</span><br><span class="line">    const &#123; status, msg, data &#125; = await userServices.getUserInfo()</span><br><span class="line">    if (status !== 201) &#123;</span><br><span class="line">      Message.error(msg)</span><br><span class="line">    &#125;</span><br><span class="line">    context.commit(&apos;UPDATE_USER_INFO&apos;, data)</span><br><span class="line">  &#125;,</span><br><span class="line">  async logOut(context: &#123; commit: Commit &#125;) &#123;</span><br><span class="line">    const &#123; status, msg &#125; = await userServices.logout()</span><br><span class="line">    if (status !== 201) &#123;</span><br><span class="line">      Message.error(msg)</span><br><span class="line">    &#125;</span><br><span class="line">    context.commit(&apos;UPDATE_USER_INFO&apos;, null)</span><br><span class="line">  &#125;,</span><br><span class="line">  clearInfo(context: &#123; commit: Commit &#125;) &#123;</span><br><span class="line">    context.commit(&apos;UPDATE_USER_INFO&apos;, null)</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export default &#123;</span><br><span class="line">  namespaced: true,</span><br><span class="line">  state,</span><br><span class="line">  mutations,</span><br><span class="line">  actions,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">// index.ts</span><br><span class="line">import Vue from &apos;vue&apos;</span><br><span class="line">import Vuex from &apos;vuex&apos;</span><br><span class="line">import user from &apos;./modules/user&apos;</span><br><span class="line"></span><br><span class="line">Vue.use(Vuex)</span><br><span class="line"></span><br><span class="line">export default new Vuex.Store(&#123;</span><br><span class="line">  modules: &#123;</span><br><span class="line">    user,</span><br><span class="line">  &#125;,</span><br><span class="line">  getters: &#123;</span><br><span class="line">    userInfo: (state: any) =&gt; state.user.userInfo,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">// main.ts</span><br><span class="line">new Vue(&#123;</span><br><span class="line">  router,</span><br><span class="line">  store,</span><br><span class="line">  i18n,</span><br><span class="line">  render: (h) =&gt; h(App),</span><br><span class="line">&#125;).$mount(&apos;#app&apos;)</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-comment">// user.ts</span><br><span class="hljs-keyword">import</span> &#123; Commit &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vuex&#x27;</span><br><span class="hljs-keyword">import</span> createUserServices <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@/services/user&#x27;</span><br><span class="hljs-keyword">import</span> &#123; Message &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;element-ui&#x27;</span><br><br><span class="hljs-keyword">const</span> userServices = createUserServices()<br><br><span class="hljs-keyword">const</span> state: <span class="hljs-built_in">any</span> = &#123;<br>  userInfo: <span class="hljs-literal">null</span>,<br>&#125;<br><br><span class="hljs-keyword">const</span> mutations: <span class="hljs-built_in">any</span> = &#123;<br>  <span class="hljs-function"><span class="hljs-title">UPDATE_USER_INFO</span>(<span class="hljs-params">state: <span class="hljs-built_in">any</span>, userInfo: <span class="hljs-built_in">any</span></span>)</span> &#123;<br>    state.userInfo = userInfo<br>  &#125;,<br>&#125;<br><br><span class="hljs-keyword">const</span> actions: <span class="hljs-built_in">any</span> = &#123;<br>  <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-title">getUserInfo</span>(<span class="hljs-params">context: &#123; commit: Commit &#125;</span>)</span> &#123;<br>    <span class="hljs-keyword">const</span> &#123; status, msg, data &#125; = <span class="hljs-keyword">await</span> userServices.getUserInfo()<br>    <span class="hljs-keyword">if</span> (status !== <span class="hljs-number">201</span>) &#123;<br>      Message.error(msg)<br>    &#125;<br>    context.commit(<span class="hljs-string">&#x27;UPDATE_USER_INFO&#x27;</span>, data)<br>  &#125;,<br>  <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-title">logOut</span>(<span class="hljs-params">context: &#123; commit: Commit &#125;</span>)</span> &#123;<br>    <span class="hljs-keyword">const</span> &#123; status, msg &#125; = <span class="hljs-keyword">await</span> userServices.logout()<br>    <span class="hljs-keyword">if</span> (status !== <span class="hljs-number">201</span>) &#123;<br>      Message.error(msg)<br>    &#125;<br>    context.commit(<span class="hljs-string">&#x27;UPDATE_USER_INFO&#x27;</span>, <span class="hljs-literal">null</span>)<br>  &#125;,<br>  <span class="hljs-function"><span class="hljs-title">clearInfo</span>(<span class="hljs-params">context: &#123; commit: Commit &#125;</span>)</span> &#123;<br>    context.commit(<span class="hljs-string">&#x27;UPDATE_USER_INFO&#x27;</span>, <span class="hljs-literal">null</span>)<br>  &#125;,<br>&#125;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;<br>  namespaced: <span class="hljs-literal">true</span>,<br>  state,<br>  mutations,<br>  actions,<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs pf">// index.ts<br>import Vue <span class="hljs-keyword">from</span> &#x27;vue&#x27;<br>import Vuex <span class="hljs-keyword">from</span> &#x27;vuex&#x27;<br>import <span class="hljs-keyword">user</span> <span class="hljs-keyword">from</span> &#x27;./modules/<span class="hljs-keyword">user</span>&#x27;<br><br>Vue.use(Vuex)<br><br>export <span class="hljs-keyword">default</span> new Vuex.Store(&#123;<br>  modules: &#123;<br>    <span class="hljs-keyword">user</span>,<br>  &#125;,<br>  getters: &#123;<br>    <span class="hljs-keyword">user</span>Info: (<span class="hljs-keyword">state</span>: <span class="hljs-literal">any</span>) =&gt; <span class="hljs-keyword">state</span>.<span class="hljs-keyword">user</span>.<span class="hljs-keyword">user</span>Info,<br>  &#125;,<br>&#125;)<br><br>// main.ts<br>new Vue(&#123;<br>  router,<br>  store,<br>  i18n,<br>  render: (h) =&gt; h(App),<br>&#125;).<span class="hljs-variable">$mount</span>(&#x27;<span class="hljs-comment">#app&#x27;)</span><br><br></code></pre></td></tr></table></figure>
 <p>使用的时候可以在文件中引入store使用，在vue文件中可以直接调用this.$store使用</p>
 <h3 id="3、EsLint配置"><a href="#3、EsLint配置" class="headerlink" title="3、EsLint配置"></a>3、EsLint配置</h3><p>package.json</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&quot;scripts&quot;: &#123;</span><br><span class="line">    &quot;lint&quot;: &quot;eslint --ext .js,.vue src --fix&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">&quot;devDependencies&quot;: &#123;</span><br><span class="line">    &quot;@typescript-eslint/eslint-plugin&quot;: &quot;^4.9.0&quot;,</span><br><span class="line">    &quot;@typescript-eslint/parser&quot;: &quot;^4.9.0&quot;,</span><br><span class="line">    &quot;babel-eslint&quot;: &quot;10.1.0&quot;,</span><br><span class="line">    &quot;eslint&quot;: &quot;7.13.0&quot;,</span><br><span class="line">    &quot;eslint-config-prettier&quot;: &quot;^6.15.0&quot;,</span><br><span class="line">    &quot;eslint-friendly-formatter&quot;: &quot;4.0.1&quot;,</span><br><span class="line">    &quot;eslint-plugin-import&quot;: &quot;2.22.1&quot;,</span><br><span class="line">    &quot;eslint-plugin-node&quot;: &quot;11.1.0&quot;,</span><br><span class="line">    &quot;eslint-plugin-prettier&quot;: &quot;^3.2.0&quot;,</span><br><span class="line">    &quot;eslint-plugin-promise&quot;: &quot;4.2.1&quot;,</span><br><span class="line">    &quot;eslint-plugin-vue&quot;: &quot;7.1.0&quot;,</span><br><span class="line">    &quot;prettier&quot;: &quot;^2.2.1&quot;,</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs perl"><span class="hljs-string">&quot;scripts&quot;</span>: &#123;<br>    <span class="hljs-string">&quot;lint&quot;</span>: <span class="hljs-string">&quot;eslint --ext .js,.vue src --fix&quot;</span><br>  &#125;,<br><span class="hljs-string">&quot;devDependencies&quot;</span>: &#123;<br>    <span class="hljs-string">&quot;@typescript-eslint/eslint-plugin&quot;</span>: <span class="hljs-string">&quot;^4.9.0&quot;</span>,<br>    <span class="hljs-string">&quot;@typescript-eslint/parser&quot;</span>: <span class="hljs-string">&quot;^4.9.0&quot;</span>,<br>    <span class="hljs-string">&quot;babel-eslint&quot;</span>: <span class="hljs-string">&quot;10.1.0&quot;</span>,<br>    <span class="hljs-string">&quot;eslint&quot;</span>: <span class="hljs-string">&quot;7.13.0&quot;</span>,<br>    <span class="hljs-string">&quot;eslint-config-prettier&quot;</span>: <span class="hljs-string">&quot;^6.15.0&quot;</span>,<br>    <span class="hljs-string">&quot;eslint-friendly-formatter&quot;</span>: <span class="hljs-string">&quot;4.0.1&quot;</span>,<br>    <span class="hljs-string">&quot;eslint-plugin-import&quot;</span>: <span class="hljs-string">&quot;2.22.1&quot;</span>,<br>    <span class="hljs-string">&quot;eslint-plugin-node&quot;</span>: <span class="hljs-string">&quot;11.1.0&quot;</span>,<br>    <span class="hljs-string">&quot;eslint-plugin-prettier&quot;</span>: <span class="hljs-string">&quot;^3.2.0&quot;</span>,<br>    <span class="hljs-string">&quot;eslint-plugin-promise&quot;</span>: <span class="hljs-string">&quot;4.2.1&quot;</span>,<br>    <span class="hljs-string">&quot;eslint-plugin-vue&quot;</span>: <span class="hljs-string">&quot;7.1.0&quot;</span>,<br>    <span class="hljs-string">&quot;prettier&quot;</span>: <span class="hljs-string">&quot;^2.2.1&quot;</span>,<br>  &#125;<br></code></pre></td></tr></table></figure>
 <p>.eslintrc.js</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line">  root: true,</span><br><span class="line">  env: &#123;</span><br><span class="line">    es6: true,</span><br><span class="line">    node: true</span><br><span class="line">  &#125;,</span><br><span class="line">  parserOptions: &#123;</span><br><span class="line">    ecmaVersion: 2020,</span><br><span class="line">    parser: &quot;@typescript-eslint/parser&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  extends: [</span><br><span class="line">    &apos;plugin:@typescript-eslint/recommended&apos;,</span><br><span class="line">    &apos;prettier/@typescript-eslint&apos;,</span><br><span class="line">    &apos;plugin:vue/recommended&apos;,</span><br><span class="line">    &apos;plugin:prettier/recommended&apos;,</span><br><span class="line">    &quot;prettier/babel&quot;,</span><br><span class="line">    &quot;prettier/standard&quot;,</span><br><span class="line">    &quot;prettier/vue&quot;</span><br><span class="line">  ],</span><br><span class="line">  rules: &#123;</span><br><span class="line">    &apos;no-console&apos;: process.env.NODE_ENV === &apos;production&apos; ? &apos;warn&apos; : &apos;off&apos;,</span><br><span class="line">    &apos;no-debugger&apos;: process.env.NODE_ENV === &apos;production&apos; ? &apos;warn&apos; : &apos;off&apos;,</span><br><span class="line">    &quot;@typescript-eslint/explicit-module-boundary-types&quot;: 0,</span><br><span class="line">    &quot;@typescript-eslint/no-explicit-any&quot;: 0,</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight sml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs sml">module.exports = &#123;<br>  root: <span class="hljs-literal">true</span>,<br>  env: &#123;<br>    es6: <span class="hljs-literal">true</span>,<br>    node: <span class="hljs-literal">true</span><br>  &#125;,<br>  parserOptions: &#123;<br>    ecmaVersion: <span class="hljs-number">2020</span>,<br>    parser: <span class="hljs-string">&quot;@typescript-eslint/parser&quot;</span><br>  &#125;,<br>  extends: [<br>    <span class="hljs-symbol">&#x27;plugin</span>:@typescript-eslint/recommended&#x27;,<br>    <span class="hljs-symbol">&#x27;prettier</span>/@typescript-eslint&#x27;,<br>    <span class="hljs-symbol">&#x27;plugin</span>:vue/recommended&#x27;,<br>    <span class="hljs-symbol">&#x27;plugin</span>:prettier/recommended&#x27;,<br>    <span class="hljs-string">&quot;prettier/babel&quot;</span>,<br>    <span class="hljs-string">&quot;prettier/standard&quot;</span>,<br>    <span class="hljs-string">&quot;prettier/vue&quot;</span><br>  ],<br>  rules: &#123;<br>    <span class="hljs-symbol">&#x27;no</span>-console&#x27;: process.env.<span class="hljs-type">NODE_ENV</span> === <span class="hljs-symbol">&#x27;production&#x27;</span> ? <span class="hljs-symbol">&#x27;warn&#x27;</span> : <span class="hljs-symbol">&#x27;off&#x27;</span>,<br>    <span class="hljs-symbol">&#x27;no</span>-debugger&#x27;: process.env.<span class="hljs-type">NODE_ENV</span> === <span class="hljs-symbol">&#x27;production&#x27;</span> ? <span class="hljs-symbol">&#x27;warn&#x27;</span> : <span class="hljs-symbol">&#x27;off&#x27;</span>,<br>    <span class="hljs-string">&quot;@typescript-eslint/explicit-module-boundary-types&quot;</span>: <span class="hljs-number">0</span>,<br>    <span class="hljs-string">&quot;@typescript-eslint/no-explicit-any&quot;</span>: <span class="hljs-number">0</span>,<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>.pretterrc.js</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line">  // tab缩进大小,默认为2</span><br><span class="line">  tabWidth: 2,</span><br><span class="line">// 使用tab缩进，默认false</span><br><span class="line">// useTabs: true,</span><br><span class="line">// 使用分号, 默认true</span><br><span class="line">  semi: false,</span><br><span class="line">// 使用单引号, 默认false(在jsx中配置无效, 默认都是双引号)</span><br><span class="line">  singleQuote: true,</span><br><span class="line">// 行尾逗号,默认none,可选 none|es5|all</span><br><span class="line">// es5 包括es5中的数组、对象</span><br><span class="line">// all 包括函数对象等所有可选</span><br><span class="line">  TrailingCooma: &quot;none&quot;,</span><br><span class="line">// 对象中的空格 默认true</span><br><span class="line">// true: &#123; foo: bar &#125;</span><br><span class="line">// false: &#123;foo: bar&#125;</span><br><span class="line">  bracketSpacing: true,</span><br><span class="line">// JSX标签闭合位置 默认false</span><br><span class="line">// false: &lt;div</span><br><span class="line">//          className=&quot;&quot;</span><br><span class="line">//          style=&#123;&#123;&#125;&#125;</span><br><span class="line">//       &gt;</span><br><span class="line">// true: &lt;div</span><br><span class="line">//          className=&quot;&quot;</span><br><span class="line">//          style=&#123;&#123;&#125;&#125; &gt;</span><br><span class="line">  jsxBracketSameLine: false,</span><br><span class="line">// 箭头函数参数括号 默认avoid 可选 avoid| always</span><br><span class="line">// avoid 能省略括号的时候就省略 例如x =&gt; x</span><br><span class="line">// always 总是有括号</span><br><span class="line">  arrowParens: &apos;always&apos;,</span><br><span class="line">  endOfLine: &quot;auto&quot; </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs awk">module.exports = &#123;<br>  <span class="hljs-regexp">//</span> tab缩进大小,默认为<span class="hljs-number">2</span><br>  tabWidth: <span class="hljs-number">2</span>,<br><span class="hljs-regexp">//</span> 使用tab缩进，默认false<br><span class="hljs-regexp">//</span> useTabs: true,<br><span class="hljs-regexp">//</span> 使用分号, 默认true<br>  semi: false,<br><span class="hljs-regexp">//</span> 使用单引号, 默认false(在jsx中配置无效, 默认都是双引号)<br>  singleQuote: true,<br><span class="hljs-regexp">//</span> 行尾逗号,默认none,可选 none|es5|all<br><span class="hljs-regexp">//</span> es5 包括es5中的数组、对象<br><span class="hljs-regexp">//</span> all 包括函数对象等所有可选<br>  TrailingCooma: <span class="hljs-string">&quot;none&quot;</span>,<br><span class="hljs-regexp">//</span> 对象中的空格 默认true<br><span class="hljs-regexp">//</span> true: &#123; foo: bar &#125;<br><span class="hljs-regexp">//</span> false: &#123;foo: bar&#125;<br>  bracketSpacing: true,<br><span class="hljs-regexp">//</span> JSX标签闭合位置 默认false<br><span class="hljs-regexp">//</span> false: &lt;div<br><span class="hljs-regexp">//</span>          className=<span class="hljs-string">&quot;&quot;</span><br><span class="hljs-regexp">//</span>          style=&#123;&#123;&#125;&#125;<br><span class="hljs-regexp">//</span>       &gt;<br><span class="hljs-regexp">//</span> true: &lt;div<br><span class="hljs-regexp">//</span>          className=<span class="hljs-string">&quot;&quot;</span><br><span class="hljs-regexp">//</span>          style=&#123;&#123;&#125;&#125; &gt;<br>  jsxBracketSameLine: false,<br><span class="hljs-regexp">//</span> 箭头函数参数括号 默认avoid 可选 avoid| always<br><span class="hljs-regexp">//</span> avoid 能省略括号的时候就省略 例如x =&gt; x<br><span class="hljs-regexp">//</span> always 总是有括号<br>  arrowParens: <span class="hljs-string">&#x27;always&#x27;</span>,<br>  endOfLine: <span class="hljs-string">&quot;auto&quot;</span> <br>&#125;;<br></code></pre></td></tr></table></figure>
 <h2 id="三、TS使用到的特性"><a href="#三、TS使用到的特性" class="headerlink" title="三、TS使用到的特性"></a>三、TS使用到的特性</h2><p>interface、函数返回、声明文件等，其他跟es6差不多</p>
 <h2 id="四、总结"><a href="#四、总结" class="headerlink" title="四、总结"></a>四、总结</h2><p>总体用下来感觉，技术只是技术，ts并没有比es6高档很多，更多的还是自己的选择。</p>
+      </section>
+      <section class="extra">
+        
+          <ul class="copyright">
+  
+    <li><strong>本文作者：</strong>ZhangHeng</li>
+    <li><strong>本文链接：</strong><a href="https://zhanghenggetup.github.io/2020/12/17/Vue-TypeScript%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/index.html" title="https:&#x2F;&#x2F;zhanghenggetup.github.io&#x2F;2020&#x2F;12&#x2F;17&#x2F;Vue-TypeScript%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95&#x2F;index.html">https:&#x2F;&#x2F;zhanghenggetup.github.io&#x2F;2020&#x2F;12&#x2F;17&#x2F;Vue-TypeScript%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95&#x2F;index.html</a></li>
+    <li><strong>版权声明：</strong>本博客所有文章均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" title="BY-NC-SA" target="_blank" rel="noopener">BY-NC-SA</a> 许可协议，转载请注明出处！</li>
+  
+</ul>
+        
+        
+        
+  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue-TypeScript/" rel="tag">vue TypeScript</a></li></ul> 
 
         
+  <nav class="nav">
+    <a href="/2021/01/29/%E8%AF%A6%E8%A7%A3Promise/"><i class="iconfont iconleft"></i>详解Promise</a>
+    <a href="/2020/09/21/%E5%85%B3%E4%BA%8ESEO/">关于SEO<i class="iconfont iconright"></i></a>
+  </nav>
+
+      </section>
+      
     </section>
-</article>
+  </div>
+</article></div>
+      <div class="col-xl-2">
+        
+          
+  <aside class="toc-wrap">
+    <h3 class="toc-title">文章目录：</h3>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE"><span class="toc-text">一、创建项目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84"><span class="toc-text">二、项目结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81%E6%8C%82%E8%BD%BD%E5%85%A8%E5%B1%80%E6%96%B9%E6%B3%95"><span class="toc-text">1、挂载全局方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81Vuex%E4%BD%BF%E7%94%A8"><span class="toc-text">2、Vuex使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E3%80%81EsLint%E9%85%8D%E7%BD%AE"><span class="toc-text">3、EsLint配置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81TS%E4%BD%BF%E7%94%A8%E5%88%B0%E7%9A%84%E7%89%B9%E6%80%A7"><span class="toc-text">三、TS使用到的特性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E6%80%BB%E7%BB%93"><span class="toc-text">四、总结</span></a></li></ol>
+  </aside>
 
+        
+      </div>
+    </div>
+  </div>
+</main>
+  
 
-
-<a id="pagenext" href="/2020/09/21/关于SEO/" class="article-next" title="关于SEO"><i class="icon-arrow-right"></i></a>
-
-
-<a id="pageprev" href="/2021/01/18/来来看烟花/" class="article-prev" title="来来看烟花"><i class="icon-arrow-left"></i></a>
-
-
-
-
-            </div>
-        </div>
-        <footer class="footer">
-    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme by <a href="https://github.com/sanonz/hexo-theme-concise" target="_blank">Concise</a>
-
-    
-    <script>
-        var _hmt = _hmt || [];
-        (function () {
-            var hm = document.createElement("script");
-            hm.src = "https://hm.baidu.com/hm.js?e4027971a230b210f4671f485b33846a";
-            var s = document.getElementsByTagName("script")[0];
-            s.parentNode.insertBefore(hm, s);
-        })();
-    </script>
-    
+<footer class="footer">
+  <div class="footer-social"><a 
+        href="tencent://message/?Menu=yes&uin=894519210 "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#12B7F5'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconQQ "></i>
+      </a><a 
+        href="javascript:; "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#09BB07'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconwechat-fill "></i>
+      </a><a 
+        href="https://github.com/zhanghenggetup "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#9f7be1'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  icongithub-fill "></i>
+      </a><a 
+        href="mailto:1363123656@qq.com "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color=#FF3B00" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconmail"></i>
+      </a></div>
+  
+    <div class="footer-copyright"><p>Powered by zhangheng</p></div>
+  
 </footer>
-
-    </main>
-
-    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
-    <script type="text/javascript">
-    $(function() {
-        var nodes = {
-            nav: $('#nav'),
-            aside: $('#aside'),
-            asideInner: $('#aside-inner'),
-            navInner: $('#nav-inner')
-        };
-
-        var doing = false;
-        nodes.asideInner.on('webkitAnimationEnd mozAnimationEnd oAnimationEnd oanimationend animationend', function() {
-            if (nodes.aside.hasClass('mobile-open')) {
-                nodes.aside.removeClass('mobile-open');
-            } else {
-                nodes.aside.removeClass('mobile-close panel-show');
-            }
-            doing = false;
-        });
-        $('#open-panel, #aside-mask').on('click', function() {
-            if (doing) {
-                return;
-            }
-
-            if (nodes.aside.hasClass('panel-show')) {
-                nodes.aside.addClass('mobile-close');
-            } else {
-                nodes.aside.addClass('mobile-open panel-show');
-            }
-        });
-        $('#open-menus').on('click', function() {
-            nodes.navInner.slideToggle();
-        });
-
-        if (window.innerWidth <= 960) {
-            setTimeout(function() {
-                nodes.navInner.slideUp();
-            }, 3000);
-        }
-    });
-    </script>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+    <div class="scrollbar j-scrollbar">
+  <div class="scrollbar-current j-scrollbar-current"></div>
+</div>
+  
+  
     
-        <script src="/js/scrollspy.min.js"></script>
-        <script type="text/javascript">
-        $(document.body).scrollspy({target: '#aside-inner'});
+<script src="/js/color-mode.js"></script>
 
-        $(window).on('resize', function() {
-            var hw = $('#header').width();
-            var ww = $('#wrapper').width();
-            var space = ($(this).width() - hw - ww) / 2 / 2;
-
-            var pageprev = $('#pageprev');
-            var pagenext = $('#pagenext');
-            var avg = (pageprev.width() + pagenext.width()) / 2
-
-            if(space > avg) {
-                var len = space - avg / 2;
-                var styles = {position: 'fixed', top: '50%', marginTop: - (pageprev.width() + pagenext.width()) / 4}
-                pageprev.css($.extend({left: hw + len}, styles));
-                pagenext.css($.extend({right: len}, styles));
-            } else {
-                pageprev.removeAttr('style');
-                pagenext.removeAttr('style');
-            }
-        }).trigger('resize');
-        </script>
-    
-
+  
 </body>
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
 </html>

@@ -1,234 +1,343 @@
+
+
 <!DOCTYPE html>
-<html lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-    <meta charset="UTF-8">
+<html lang="en" color-mode=light>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>window.open()被拦截 - 张恒的Blog</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+  
+  <meta name="description" content="项目里经常会碰到调用一个接口，返回一个新链接，然后我们...">
+  <meta name="author" content="ZhangHeng">
+  <link rel="icon" href="/images/icons/favicon-16x16.png" type="image/png" sizes="16x16">
+  <link rel="icon" href="/images/icons/favicon-32x32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/images/icons/apple-touch-icon.png" sizes="180x180">
+  <meta rel="mask-icon" href="/images/icons/stun-logo.svg" color="#333333">
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/favicon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
 
-    
+  
+<link rel="stylesheet" href="/css/style.css">
 
-    
 
-    <title>window.open()被拦截 | 张恒的Blog</title>
-    <meta name="author" content="ZhangHeng">
-    <meta name="keywords" content>
-    <meta name="description" content="项目里经常会碰到调用一个接口，返回一个新链接，然后我们要把这链接在一个新页面里打开的场景，但是如果直接在接口返回数据的时候直接window.open(newUrl)时往往会被浏览器拦截。解决方案：在接口调用之前先打开一个新页面，然后调用接口，当接口调用成功后，把返回的新链接加载到新窗口上。1234567async jump()&amp;#123;	const newWindow = window.open()	this.$loading.start()	const &amp;#123; err, ...">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+  
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1445822_s6x2xcokxrl.css">
 
-    
-    
-    <link rel="icon" href="/images/favicon.ico">
-    
+  
 
-    <style type="text/css">
-    @font-face {
-        font-family: 'icomoon';
-        src: url("/fonts/icomoon.eot?q628ml");
-        src: url("/fonts/icomoon.eot?q628ml#iefix") format('embedded-opentype'),
-             url("/fonts/icomoon.ttf?q628ml") format('truetype'),
-             url("/fonts/icomoon.woff?q628ml") format('woff'),
-             url("/fonts/icomoon.svg?q628ml#icomoon") format('svg');
-        font-weight: normal;
-        font-style: normal;
+  
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+    
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+
+      
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      lazyload: {
+        enable: true,
+        only_post: 'false',
+        loading: '/images/theme/loading.gif'
+      },
+      donate: {
+        enable: false,
+        alipay: 'https://pic.izhaoo.com/alipay.jpg',
+        wechat: 'https://pic.izhaoo.com/wechat.jpg'
+      },
+      galleries: {
+        enable: false
+      },
+      fab: {
+        enable: true,
+        always_show: false
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: false
+      },
+      preview: {
+        background: {
+          default: '/images/theme/welcome-image.jpg',
+          api: ''
+        },
+        motto: {
+          default: '我在开了灯的床头下，想问问自己的心啊。',
+          api: 'https://v2.jinrishici.com/one.json',
+          data_contents: '["data","content"]'
+        },
+      },
+      qrcode: {
+        enable: true,
+        type: 'url',
+        image: 'https://pic.izhaoo.com/weapp-code.jpg',
+      },
+      toc: {
+        enable: true
+      },
+      scrollbar: {
+        type: 'simple'
+      },
+      notification: {
+        enable: false,
+        delay: 4500,
+        list: '',
+        page_white_list: '',
+        page_black_list: ''
+      }
     }
-    </style>
-    <link rel="stylesheet" href="/css/style.css">
+  </script>
 
-    <!--[if lt IE 9]>
-    <style type="text/css">
-    .nav-inner {top:0;}
-    .author-meta {position:static;top:0;}
-    .search-form {height:36px;}
-    </style>
-    <script type="text/javascript" src="https://unpkg.com/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-    <![endif]-->
-</head>
-<body>
+  
 
-    <main class="app">
-        <header id="header" class="header clearfix">
-    <div id="nav" class="nav">
-    <div class="nav-mobile">
-        <button id="open-panel" class="open-panel nav-mobile-item"><i class="icon-documents"></i></button>
-        <h1 class="nav-mobile-title nav-mobile-item">张恒的Blog</h1>
-        <button id="open-menus" class="open-panel nav-mobile-item"><i class="icon-library"></i></button>
+  
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body class="lock-screen">
+  <div class="loading"></div>
+  
+
+
+  <nav class="navbar">
+    <div class="left">
+      
+        <i class="iconfont iconqrcode j-navbar-qrcode"></i>
+      
+      
+        <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+      
     </div>
-
-    <nav id="nav-inner" class="nav-inner">
-        
-            <a class="nav-item" href="/">
-                <span class="nav-text">首页</span>
-            </a>
-        
-            <a class="nav-item" href="/tags">
-                <span class="nav-text">标签</span>
-            </a>
-        
-            <a class="nav-item" href="/archives">
-                <span class="nav-text">归档</span>
-            </a>
-        
-            <a class="nav-item" href="/about">
-                <span class="nav-text">关于</span>
-            </a>
-        
-    </nav>
-</div>
-
-    <aside id="aside" class="aside">
-    <div id="aside-mask" class="aside-mask"></div>
-    <div id="aside-inner" class="aside-inner">
-        <!-- <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="https://zhanghenggetup.github.io"></form> -->
-
-        
-        
-        
-        
-
-        
-        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#解决方案："><span class="toc-number">1.</span> <span class="toc-text">解决方案：</span></a></li></ol>
-        
+    <div class="center">window.open()被拦截</div>
+    <div class="right">
+      <i class="iconfont iconmenu j-navbar-menu"></i>
     </div>
-</aside>
-</header>
-
-        <div id="content" class="content">
-            <div id="wrapper" class="wrapper" style="max-width: 800px">
-                <article class="article" itemscope itemprop="blogPost">
     
-    <header class="article-header">
-        
-        <h1 itemprop="name">
-            window.open()被拦截
-        </h1>
-        
-        <div class="article-meta clearfix">
-            <a class="article-date" href="https://zhanghenggetup.github.io/2019/12/19/window-open-被拦截/index.html">
+      <div id="qrcode-navbar"></div>
     
-    <i class="icon-calendar"></i>
+  </nav>
+
+  
+
+<nav class="menu">
+  <div class="menu-wrap">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content"><li class="menu-item">
+        <a href="/ " class="underline "> 首页</a>
+      </li><li class="menu-item">
+        <a href="/archives/ " class="underline "> 归档</a>
+      </li><li class="menu-item">
+        <a href="/about/ " class="underline "> 关于</a>
+      </li></ul>
     
-    <time datetime="2019-12-19T07:25:43.000Z" itemprop="datePublished">2019-12-19</time>
-</a>
-
-            
-<div class="article-tag-list">
-    <i class="icon-tag"></i>
-    <a class="article-tag-link" href="/tags/javaScript/">javaScript</a>
-</div>
-
-
-        </div>
-    </header>
+      <div class="menu-copyright"><p>Powered by zhangheng</p></div>
     
-    <section class="article-body markdown-body">
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-2"></div>
+      <div class="col-xl-8"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img   class="lazyload" data-original="/images/theme/post-image.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">window.open()被拦截</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>December 19, 2019</span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>393</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        <h4 id="解决方案："><a href="#解决方案：" class="headerlink" title="解决方案："></a>解决方案：</h4><p>在接口调用之前先打开一个新页面，然后调用接口，当接口调用成功后，把返回的新链接加载到新窗口上。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs kotlin">async jump()&#123;<br>	<span class="hljs-keyword">const</span> newWindow = window.<span class="hljs-keyword">open</span>()<br>	<span class="hljs-keyword">this</span>.$loading.start()<br>	<span class="hljs-keyword">const</span> &#123; err, <span class="hljs-keyword">data</span>: &#123; <span class="hljs-keyword">data</span> &#125; &#125; = await <span class="hljs-keyword">this</span>.$service.index.jumpNewPage(params)<br>	<span class="hljs-keyword">this</span>.$loading.done()<br>	newWindow.location.href = <span class="hljs-keyword">data</span>.newUrl<br>&#125; <br></code></pre></td></tr></table></figure>
+      </section>
+      <section class="extra">
         
-        <p>项目里经常会碰到调用一个接口，返回一个新链接，然后我们要把这链接在一个新页面里打开的场景，但是如果直接在接口返回数据的时候直接<code>window.open(newUrl)</code>时往往会被浏览器拦截。</p>
-<a id="more"></a>
-
-<h4 id="解决方案："><a href="#解决方案：" class="headerlink" title="解决方案："></a>解决方案：</h4><p>在接口调用之前先打开一个新页面，然后调用接口，当接口调用成功后，把返回的新链接加载到新窗口上。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">async jump()&#123;</span><br><span class="line">	const newWindow = window.open()</span><br><span class="line">	this.$loading.start()</span><br><span class="line">	const &#123; err, data: &#123; data &#125; &#125; = await this.$service.index.jumpNewPage(params)</span><br><span class="line">	this.$loading.done()</span><br><span class="line">	newWindow.location.href = data.newUrl</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+          <ul class="copyright">
+  
+    <li><strong>本文作者：</strong>ZhangHeng</li>
+    <li><strong>本文链接：</strong><a href="https://zhanghenggetup.github.io/2019/12/19/window-open-%E8%A2%AB%E6%8B%A6%E6%88%AA/index.html" title="https:&#x2F;&#x2F;zhanghenggetup.github.io&#x2F;2019&#x2F;12&#x2F;19&#x2F;window-open-%E8%A2%AB%E6%8B%A6%E6%88%AA&#x2F;index.html">https:&#x2F;&#x2F;zhanghenggetup.github.io&#x2F;2019&#x2F;12&#x2F;19&#x2F;window-open-%E8%A2%AB%E6%8B%A6%E6%88%AA&#x2F;index.html</a></li>
+    <li><strong>版权声明：</strong>本博客所有文章均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" title="BY-NC-SA" target="_blank" rel="noopener">BY-NC-SA</a> 许可协议，转载请注明出处！</li>
+  
+</ul>
+        
+        
+        
+  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/javaScript/" rel="tag">javaScript</a></li></ul> 
 
         
+  <nav class="nav">
+    <a href="/2020/06/10/JS%E7%9F%A5%E8%AF%86%E7%82%B9/"><i class="iconfont iconleft"></i>JS知识点</a>
+    <a href="/2019/12/12/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E6%9E%84%E5%BB%BAnpm%E5%BC%82%E5%B8%B8/">小程序构建npm异常<i class="iconfont iconright"></i></a>
+  </nav>
+
+      </section>
+      
     </section>
-</article>
-
-
-
-<a id="pagenext" href="/2019/12/12/小程序构建npm异常/" class="article-next" title="小程序构建npm异常"><i class="icon-arrow-right"></i></a>
-
-
-<a id="pageprev" href="/2020/06/10/JS知识点/" class="article-prev" title="JS知识点"><i class="icon-arrow-left"></i></a>
-
-
-
-
-            </div>
-        </div>
-        <footer class="footer">
-    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme by <a href="https://github.com/sanonz/hexo-theme-concise" target="_blank">Concise</a>
-
+  </div>
+</article></div>
+      <div class="col-xl-2">
+        
+          
+  <aside class="toc-wrap">
+    <h3 class="toc-title">文章目录：</h3>
     
-    <script>
-        var _hmt = _hmt || [];
-        (function () {
-            var hm = document.createElement("script");
-            hm.src = "https://hm.baidu.com/hm.js?e4027971a230b210f4671f485b33846a";
-            var s = document.getElementsByTagName("script")[0];
-            s.parentNode.insertBefore(hm, s);
-        })();
-    </script>
-    
+  </aside>
+
+        
+      </div>
+    </div>
+  </div>
+</main>
+  
+
+<footer class="footer">
+  <div class="footer-social"><a 
+        href="tencent://message/?Menu=yes&uin=894519210 "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#12B7F5'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconQQ "></i>
+      </a><a 
+        href="javascript:; "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#09BB07'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconwechat-fill "></i>
+      </a><a 
+        href="https://github.com/zhanghenggetup "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#9f7be1'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  icongithub-fill "></i>
+      </a><a 
+        href="mailto:1363123656@qq.com "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color=#FF3B00" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconmail"></i>
+      </a></div>
+  
+    <div class="footer-copyright"><p>Powered by zhangheng</p></div>
+  
 </footer>
-
-    </main>
-
-    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
-    <script type="text/javascript">
-    $(function() {
-        var nodes = {
-            nav: $('#nav'),
-            aside: $('#aside'),
-            asideInner: $('#aside-inner'),
-            navInner: $('#nav-inner')
-        };
-
-        var doing = false;
-        nodes.asideInner.on('webkitAnimationEnd mozAnimationEnd oAnimationEnd oanimationend animationend', function() {
-            if (nodes.aside.hasClass('mobile-open')) {
-                nodes.aside.removeClass('mobile-open');
-            } else {
-                nodes.aside.removeClass('mobile-close panel-show');
-            }
-            doing = false;
-        });
-        $('#open-panel, #aside-mask').on('click', function() {
-            if (doing) {
-                return;
-            }
-
-            if (nodes.aside.hasClass('panel-show')) {
-                nodes.aside.addClass('mobile-close');
-            } else {
-                nodes.aside.addClass('mobile-open panel-show');
-            }
-        });
-        $('#open-menus').on('click', function() {
-            nodes.navInner.slideToggle();
-        });
-
-        if (window.innerWidth <= 960) {
-            setTimeout(function() {
-                nodes.navInner.slideUp();
-            }, 3000);
-        }
-    });
-    </script>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+    <div class="scrollbar j-scrollbar">
+  <div class="scrollbar-current j-scrollbar-current"></div>
+</div>
+  
+  
     
-        <script src="/js/scrollspy.min.js"></script>
-        <script type="text/javascript">
-        $(document.body).scrollspy({target: '#aside-inner'});
+<script src="/js/color-mode.js"></script>
 
-        $(window).on('resize', function() {
-            var hw = $('#header').width();
-            var ww = $('#wrapper').width();
-            var space = ($(this).width() - hw - ww) / 2 / 2;
-
-            var pageprev = $('#pageprev');
-            var pagenext = $('#pagenext');
-            var avg = (pageprev.width() + pagenext.width()) / 2
-
-            if(space > avg) {
-                var len = space - avg / 2;
-                var styles = {position: 'fixed', top: '50%', marginTop: - (pageprev.width() + pagenext.width()) / 4}
-                pageprev.css($.extend({left: hw + len}, styles));
-                pagenext.css($.extend({right: len}, styles));
-            } else {
-                pageprev.removeAttr('style');
-                pagenext.removeAttr('style');
-            }
-        }).trigger('resize');
-        </script>
-    
-
+  
 </body>
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
 </html>
